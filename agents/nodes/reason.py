@@ -13,7 +13,7 @@ import time # Нужен для создания задержки из-за ог
 
 class ReasonNode(BaseNode):
     def __init__(self):
-        super().__init__(name=NodeNames.REASON)
+        super().__init__(name=NodeNames.REASON.value)
         
         self.prompt_manager = PromptManager()
         self.prompt_template = 'system/reason.j2'

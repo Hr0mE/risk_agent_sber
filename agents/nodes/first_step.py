@@ -14,7 +14,7 @@ import time
 
 class FirstStepNode(BaseNode):
     def __init__(self):
-        super().__init__(name=NodeNames.FIRST_STEP)
+        super().__init__(name=NodeNames.FIRST_STEP.value)
         self.parser = PydanticOutputParser(pydantic_object=FirstStepDecisionModel)
         self.prompt_manager = PromptManager()
         self.prompt_template = "system/first_step.j2"
@@ -57,5 +57,3 @@ class FirstStepNode(BaseNode):
                 result=result
             )
         )
-
-print(NodeNames.FINALIZE.meta)

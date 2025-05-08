@@ -14,7 +14,7 @@ import time
 
 class WriteNode(BaseNode):
     def __init__(self):
-        super().__init__(name=NodeNames.WRITE)
+        super().__init__(name=NodeNames.WRITE.value)
         self.prompt_manager = PromptManager()
         self.prompt_template = "system/write.j2"
         

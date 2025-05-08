@@ -15,7 +15,7 @@ import time
 
 class CritiqueNode(BaseNode):
     def __init__(self):
-        super().__init__(name=NodeNames.CRITIQUE)
+        super().__init__(name=NodeNames.CRITIQUE.value)
         self.parser = PydanticOutputParser(pydantic_object=CritiqueDecisionModel)
         self.prompt_manager = PromptManager()
         self.prompt_template = "system/critique.j2"
