@@ -7,8 +7,8 @@ from agents.state_management import (
     Command,
     NodeNames
 )
-from agents.state_management.critique_model import CritiqueModel
-from config.model_config import model
+from agents.state_management.critique_model import CritiqueDecisionModel
+from models import MistralLargeModel as model
 from agents.prompts.base import PromptManager
 from agents.edges.conditions import ConditionHandler
 import time
@@ -16,7 +16,7 @@ import time
 class CritiqueNode(BaseNode):
     def __init__(self):
         super().__init__(name=NodeNames.CRITIQUE)
-        self.parser = PydanticOutputParser(pydantic_object=CritiqueModel)
+        self.parser = PydanticOutputParser(pydantic_object=CritiqueDecisionModel)
         self.prompt_manager = PromptManager()
         self.prompt_template = "system/critique.j2"
     

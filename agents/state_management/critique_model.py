@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-class CritiqueModel(BaseModel):
+class CritiqueDecisionModel(BaseModel):
     """Критика выступления"""
 
     thoughts: str = Field(description="Мысли по поводу ответа")

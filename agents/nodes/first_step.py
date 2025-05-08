@@ -7,7 +7,7 @@ from agents.state_management import (
     NodeNames
 )
 from agents.state_management.first_step_model import FirstStepDecisionModel
-from config.model_config import model
+from models import MistralLargeModel as model
 from agents.prompts.base import PromptManager
 from agents.edges.conditions import ConditionHandler
 import time

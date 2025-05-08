@@ -1,9 +1,10 @@
 from agents.state_management import NodeNames
-from agents.state_management.first_step_model import FirstStepDecision
+from agents.state_management.first_step_model import FirstStepDecisionModel
+from agents.state_management import Command
 
 class ConditionHandler:
     @staticmethod
-    def handle_first_step(decision: FirstStepDecision) -> NodeNames:
+    def handle_first_step(decision: FirstStepDecisionModel) -> NodeNames:
         """
         Определяем следующую ноду на основе решения из FirstStepDecision
         Логика проверок:
@@ -21,6 +22,15 @@ class ConditionHandler:
             return NodeNames.FINALIZE
             
         return next_node
+    
+    @staticmethod
+    def handle_write(decision: Command) -> NodeNames:
+        """
+        Перенаправляем запрос из write в critique, 
+        """
+
+        return NodeNames.CRITIQUE
+        
 
     @classmethod
     def evaluate_transition(cls, source_node: NodeNames, result: object) -> NodeNames:
@@ -28,8 +38,13 @@ class ConditionHandler:
         Главный роутер для обработки переходов между нодами
         """
         if source_node == NodeNames.FIRST_STEP:
-            if not isinstance(result, FirstStepDecision):
-                raise TypeError("FirstStep transition requires agents.state_management.first_step_model.FirstStepDecision")
+            if not isinstance(result, FirstStepDecisionModel):
+                raise TypeError("FirstStep transition requires agents.state_management.first_step_model.FirstStepDecision output")
             return cls.handle_first_step(result)
             
+        if source_node == NodeNames.WRITE:
+            if not isinstance(result, Command):
+                raise TypeError("Write transition requires agents.state_management.commands.Command output")
+            return cls.handle_write(result)
+       
         raise NotImplementedError(f"Transition from {source_node} not implemented")

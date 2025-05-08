@@ -7,8 +7,7 @@ from agents.state_management import (
     Command,
     NodeNames
 )
-from agents.state_management.first_step_model import FirstStepDecision
-from config.model_config import model
+from models import MistralLargeModel as model
 from agents.prompts.base import PromptManager
 from agents.edges.conditions import ConditionHandler
 import time
@@ -24,21 +23,19 @@ class WriteNode(BaseNode):
         # Потому что мистраль выдаёт 429 ошибку при частых запросах
         time.sleep(1)
 
-        # Рендеринг промпта
-        
         prompt = self.prompt_manager.create_chat_raw_prompt(self.prompt_template)
         chain = prompt | model | StrOutputParser()
         
         result = chain.invoke({
-            "user_question": state.user_question,
-            "last_reason": state.last_reason
-        })
+                "user_question": state.user_question,
+                "last_reason": state.last_reason,
+                "search_results": state.search_results,
+                "rag_results": state.rag_results
+            })
                 
         return Command(
             update={
-                "final_decision": result.final_decision,
-                "search_query": result.search_query,
-                "rag_query": result.rag_query,
+                "last_answer": result
             },
             goto = ConditionHandler.evaluate_transition(
                 source_node=self.name,

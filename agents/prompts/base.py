@@ -63,9 +63,9 @@ class PromptManager:
 
 
 # Пример использования в ноде рассуждения
-class ReasonPromptConfig(PromptTemplateConfig):
-    required_vars = ["user_question", "history"]
+#class ReasonPromptConfig(PromptTemplateConfig):
+#    required_vars = ["user_question", "history"]
 
 # Пример конфига для промпта system/agent_identity.j2
-class AgentIdentityConfig(PromptTemplateConfig):
-    required_vars = ["tone", "expertise_area"]
+#class AgentIdentityConfig(PromptTemplateConfig):
+#    required_vars = ["tone", "expertise_area"]

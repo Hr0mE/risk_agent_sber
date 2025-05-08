@@ -1,14 +1,13 @@
 # agents/nodes/think.py
 from agents.nodes.base import BaseNode
-from agents.prompts.base import PromptManager, ReasonPromptConfig
+from agents.prompts.base import PromptManager
 from agents.state_management import (
     ReasoningState, 
-    Command,
     NodeNames
 )
 from agents.state_management.reasoning_state import ReasoningState
 from langchain_core.output_parsers import StrOutputParser
-from config.model_config import model
+from models import MistralLargeModel as model
 import time # Нужен для создания задержки из-за ограничения в кол-во запросов к модели
 
 

@@ -12,7 +12,7 @@ class BaseModelConfig(BaseSettings, ABC):
     timeout: int = Field(30, description="Request timeout in seconds")
     safe_mode: bool = Field(False, description="Enable safe mode")
     random_seed: int | None = Field(None, description="Random seed")
-    
+
     class Config:
         env_prefix = "LLM_"
         case_sensitive = False
