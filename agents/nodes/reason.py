@@ -1,9 +1,9 @@
-# agents/nodes/think.py
 from agents.nodes.base import BaseNode
 from agents.prompts.base import PromptManager
 from agents.state_management import (
     ReasoningState, 
-    NodeNames
+    NodeNames,
+    Command
 )
 from agents.state_management.reasoning_state import ReasoningState
 from langchain_core.output_parsers import StrOutputParser
@@ -35,6 +35,6 @@ class ReasonNode(BaseNode):
         })
 
         # Возвращаем обновления для состояния
-        return {
-            "lasr_reason": result
-        }
+        return Command(
+            update={"last_reason": result}
+        )

@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any
-from agents.state_management.reasoning_state import ReasoningState
+from agents.state_management import (
+    ReasoningState, 
+    Command
+)
 import logging
 
 #TODO вынести логгирование отдельным модулем
@@ -18,7 +21,10 @@ class BaseNode(ABC):
     class MyNode(BaseNode):
         def execute(self, state: ReasoningState) -> Dict[str, Any]:
             # Логика обработки состояния
-            return {"new_key": "value"}
+            return Command(
+                update={"new_key": "value"},
+                goto=NodeNames.SOMENAME
+            )
     """
 
     def __init__(self, name: str = None):
@@ -30,7 +36,7 @@ class BaseNode(ABC):
         pass
 
     @abstractmethod
-    def execute(self, state: ReasoningState) -> Dict[str, Any]:
+    def execute(self, state: ReasoningState) -> Command:
         """Основной метод обработки состояния.
         
         Args:
@@ -41,7 +47,7 @@ class BaseNode(ABC):
         """
         pass
 
-    def __call__(self, state: ReasoningState) -> Dict[str, Any]:
+    def __call__(self, state: ReasoningState) -> Command:
         """Альтернативный интерфейс для выполнения ноды"""
         logger.debug(f"Executing node: {self.name}")
         return self.execute(state)
