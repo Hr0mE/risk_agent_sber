@@ -35,6 +35,12 @@ class BaseNode(ABC):
         """Проверка необходимых зависимостей при инициализации"""
         pass
 
+    def get_name(self) -> str:
+        "Возвращает имя ноды"
+        if not self.name:
+            raise NotImplementedError(f"Имя ноды {self} не определено")
+        return self.name
+
     @abstractmethod
     def execute(self, state: ReasoningState) -> Command:
         """Основной метод обработки состояния.
@@ -52,5 +58,5 @@ class BaseNode(ABC):
         logger.debug(f"Executing node: {self.name}")
         return self.execute(state)
 
-    def __repr__(self):
+    def __repr__(self) ->  str:
         return f"<{self.__class__.__name__} '{self.name}'>"
