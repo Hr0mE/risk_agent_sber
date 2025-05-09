@@ -11,7 +11,6 @@ from agents.state_management.critique_model import CritiqueDecisionModel
 from models import MistralLargeModel as model
 from agents.prompts.base import PromptManager
 from agents.edges.conditions import ConditionHandler
-import time
 
 class CritiqueNode(BaseNode):
     def __init__(self):
@@ -22,9 +21,6 @@ class CritiqueNode(BaseNode):
     
     
     def execute(self, state: ReasoningState) -> dict:
-        # Потому что мистраль выдаёт 429 ошибку при частых запросах
-        time.sleep(1)
-
         # Рендеринг промпта
         template = self.prompt_manager.render(
             self.prompt_template,

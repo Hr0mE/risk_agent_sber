@@ -2,6 +2,7 @@
 from langchain_mistralai import ChatMistralAI, MistralAIEmbeddings
 from .base import BaseAPIModel
 from .config.models import MistralLargeAPIConfig, MistralEmbedAPIConfig
+from time import sleep
 
 class MistralLargeModel(BaseAPIModel):    
     def __init__(self, config: MistralLargeAPIConfig):
@@ -17,6 +18,9 @@ class MistralLargeModel(BaseAPIModel):
         )
     
     def invoke(self, prompt: str) -> str:
+        # Потому что мистраль выдаёт 429 ошибку при частых запросах
+        sleep(1)
+
         response = self.model.invoke(prompt)
         return response.content
 

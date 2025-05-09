@@ -10,7 +10,6 @@ from agents.state_management import (
 from models import MistralLargeModel as model
 from agents.prompts.base import PromptManager
 from agents.edges.conditions import ConditionHandler
-import time
 
 class WriteNode(BaseNode):
     def __init__(self):
@@ -20,9 +19,6 @@ class WriteNode(BaseNode):
         
     
     def execute(self, state: ReasoningState) -> dict:
-        # Потому что мистраль выдаёт 429 ошибку при частых запросах
-        time.sleep(1)
-
         prompt = self.prompt_manager.create_chat_raw_prompt(self.prompt_template)
         chain = prompt | model | StrOutputParser()
         

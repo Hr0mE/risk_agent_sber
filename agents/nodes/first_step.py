@@ -10,7 +10,6 @@ from agents.state_management.first_step_model import FirstStepDecisionModel
 from models import MistralLargeModel as model
 from agents.prompts.base import PromptManager
 from agents.edges.conditions import ConditionHandler
-import time
 
 class FirstStepNode(BaseNode):
     def __init__(self):
@@ -26,9 +25,6 @@ class FirstStepNode(BaseNode):
         ]
     
     def execute(self, state: ReasoningState) -> Command:
-        # Потому что мистраль выдаёт 429 ошибку при частых запросах
-        time.sleep(1)
-
         # Рендеринг промпта
         template = self.prompt_manager.render(
             self.prompt_template,

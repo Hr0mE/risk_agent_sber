@@ -22,9 +22,6 @@ class FinalizeNode(BaseNode):
         #self.config = FinalizePromptConfig
 
     def execute(self, state: ReasoningState) -> dict:
-        # Потому что мистраль выдаёт 429 ошибку при частых запросах
-        time.sleep(1)
-
         prompt = self.prompt_manager.create_chat_raw_prompt(
             self.prompt_template
         )
