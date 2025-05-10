@@ -74,6 +74,15 @@ ENV/
 env.bak/
 venv.bak/
 
+# Databases
+database/
+.pdf
+.docx
+.doc
+.xlsx
+.xls
+.index
+.pkl
 
 # mypy
 .mypy_cache/
