@@ -32,9 +32,5 @@ class WriteNode(BaseNode):
         return Command(
             update={
                 "last_answer": result
-            },
-            goto = ConditionHandler.evaluate_transition(
-                source_node=self.name,
-                result=result
-            )
+            }
         )

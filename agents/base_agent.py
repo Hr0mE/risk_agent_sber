@@ -4,6 +4,8 @@ from typing import Dict
 from agents.chains import FullExecutionChain as chain
 from agents.state_management import ReasoningState as state
 from config import load_environment, validate_environment
+import asyncio
+
 
 class BaseAgent:
     def __init__(self, inputs: Dict[str, str] = None):
@@ -28,10 +30,14 @@ class BaseAgent:
             # else:
             #print(event)
 
-if __name__ == "__main__":
+async def main():
     load_environment()
     validate_environment()
+
     
     inputs = {"user_question": "Какие сроки установлены для представления головной кредитной организацией отчётов о расчёте операционного риска банковской группы в Банк России?"}
     
-    BaseAgent(inputs=inputs)
+    await BaseAgent(inputs=inputs).run()
+
+if __name__ == "__main__":
+    asyncio.run(main())

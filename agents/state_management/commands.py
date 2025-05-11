@@ -14,7 +14,7 @@ class NodeNames(str, Enum):
     RAG = "rag"
     WRITE = "write"
     FINALIZE = "finalize"
-    CRITIQUE = "critique"
+    CRITIQUE = "critic"
 
     @property
     def meta(self) -> NodeMeta:

@@ -23,14 +23,6 @@ class ConditionHandler:
             
         return next_node
     
-    @staticmethod
-    def handle_write(decision: Command) -> NodeNames:
-        """
-        Перенаправляем запрос из write в critique, 
-        """
-
-        return NodeNames.CRITIQUE
-        
 
     @classmethod
     def evaluate_transition(cls, source_node: NodeNames, result: object) -> NodeNames:
@@ -41,10 +33,5 @@ class ConditionHandler:
             if not isinstance(result, FirstStepDecisionModel):
                 raise TypeError("FirstStep transition requires agents.state_management.first_step_model.FirstStepDecision output")
             return cls.handle_first_step(result)
-            
-        if source_node == NodeNames.WRITE:
-            if not isinstance(result, Command):
-                raise TypeError("Write transition requires agents.state_management.commands.Command output")
-            return cls.handle_write(result)
        
         raise NotImplementedError(f"Transition from {source_node} not implemented")
