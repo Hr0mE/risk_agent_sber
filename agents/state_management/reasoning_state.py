@@ -2,7 +2,7 @@ from typing import Dict, List
 from langgraph.graph import MessagesState
 from .manner_model import MannerInfo
 
-class ReasoningState(MessagesState):
+class GlobalState(MessagesState):
   last_reason: str
   user_question: str
   last_answer: str
