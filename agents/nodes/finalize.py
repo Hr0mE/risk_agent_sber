@@ -13,7 +13,7 @@ import time # Нужен для создания задержки из-за ог
 
 class FinalizeNode(BaseNode):
     def __init__(self):
-        super().__init__(name=NodeNames.REASON.value)
+        super().__init__(name=NodeNames.FINALIZE.value)
         
         self.prompt_manager = PromptManager()
         self.prompt_template = 'system/finalize.j2'

@@ -1,4 +1,5 @@
 from .base import BaseChain
+from typing import List
 from agents import nodes
 
 class FullExecutionChain(BaseChain):
@@ -7,20 +8,20 @@ class FullExecutionChain(BaseChain):
     def __init__(self):
         super().__init__()
         
-        node_list = [
+        node_list: List[nodes.BaseNode] = [
             nodes.RagNode,
-            nodes.FinalizeNode,
             nodes.CritiqueNode,
+            nodes.FinalizeNode,
             nodes.FirstStepNode,
             nodes.ReasonNode,
             nodes.SearchNode,
             nodes.WriteNode
         ]
 
-        #TODO попробоreasonвать по-максимуму убрать goto и перенести всё сюда
+        #TODO попробовать по-максимуму убрать goto и перенести всё сюда
         edge_list = [
             (nodes.ReasonNode, nodes.FirstStepNode),
-            (nodes.WriteNode, nodes.CritiqueNode),
+            #(nodes.WriteNode, nodes.CritiqueNode),
             (nodes.SearchNode, nodes.WriteNode),
             (nodes.RagNode, nodes.WriteNode),
         ]
@@ -34,5 +35,5 @@ class FullExecutionChain(BaseChain):
             self.add_edge(source_edge().get_name(), target_edge().get_name())
      
         # Настройка точек входа/выхода
-        #self.set_entry_point(nodes.ReasonNode().get_name())
-        #self.set_exit_point(nodes.FinalizeNode().get_name())
+        self.set_entry_point(nodes.ReasonNode().get_name())
+        self.set_exit_point(nodes.FinalizeNode().get_name())

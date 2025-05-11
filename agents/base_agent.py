@@ -34,7 +34,4 @@ if __name__ == "__main__":
     
     inputs = {"user_question": "Какие сроки установлены для представления головной кредитной организацией отчётов о расчёте операционного риска банковской группы в Банк России?"}
     
-    try:
-        BaseAgent(inputs=inputs).run()
-    except Exception as e:
-        print(e)
+    BaseAgent(inputs=inputs)

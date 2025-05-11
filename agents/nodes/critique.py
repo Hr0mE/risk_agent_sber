@@ -1,6 +1,6 @@
 from typing import Optional
 from langchain.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import PydanticOutputParser
+from langchain_core.output_parsers import PydanticOutputParser, StrOutputParser
 from agents.nodes.base import BaseNode
 from agents.state_management import (
     ReasoningState, 
@@ -20,7 +20,7 @@ class CritiqueNode(BaseNode):
         self.prompt_template = "system/critique.j2"
     
     
-    def execute(self, state: ReasoningState) -> dict:
+    def execute(self, state: ReasoningState) -> Command:
         # Рендеринг промпта
         template = self.prompt_manager.render(
             self.prompt_template,
@@ -34,7 +34,11 @@ class CritiqueNode(BaseNode):
         
         result = chain.invoke({
             "user_question": state.user_question,
-            "last_reason": state.last_reason
+            "last_reason": state.last_reason,
+            "last_answer": state.last_answer,
+            "old_critique": state.critique,
+            "search_results": state.search_results,
+            "rag_results": state.rag_results
         })
                 
         return Command(
@@ -42,6 +46,7 @@ class CritiqueNode(BaseNode):
                 "final_decision": result.final_decision,
                 "search_query": result.search_query,
                 "rag_query": result.rag_query,
+                "critique": result.critique,
             },
             goto = ConditionHandler.evaluate_transition(
                 source_node=self.name,

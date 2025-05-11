@@ -19,7 +19,6 @@ class BaseChain:
 
     def build(self, state: MessagesState) -> StateGraph:
         """Собирает граф из зарегистрированных компонентов"""
-        print(f"{self} entered build")
         self._validate_chain()
         
         workflow = StateGraph(state)
@@ -41,8 +40,6 @@ class BaseChain:
         return workflow.compile()
 
     def _validate_chain(self) -> None:
-        print(f"{self} entered the validation")
-
         """Проверяет целостность цепочки"""
         if not self.nodes:
             raise ValueError("Chain must contain at least one node")
@@ -53,20 +50,17 @@ class BaseChain:
         if not self.entry_point:
             raise ValueError("Entry point must be defined")
             
+
         # Проверяем существование нод в связях
         all_nodes = set(self.nodes.keys())
-        print(all_nodes)
         for source, target in self.edges:
             if source not in all_nodes:
                 raise ValueError(f"Source node '{source}' not registered")
             if target not in all_nodes:
                 raise ValueError(f"Target node '{target}' not registered")
-        print(f"{self} exit the validation")
-
 
     def add_node(self, name: str, node: Callable) -> None:
         """Регистрирует ноду в цепочке"""
-        print(f"Перед добавлением ноды {name} состояние списка: {self.nodes}")
         if name in self.nodes:
             raise KeyError(f"Node '{name}' already exists")
         self.nodes[name] = node
