@@ -27,7 +27,7 @@ class ReasonNode(BaseNode):
         
         # Выполнение цепочки обработки
         result = self.chain.invoke({
-            "user_question": state.user_question,
+            "user_question": state.get("user_question", ""),
         })
 
         # Возвращаем обновления для состояния

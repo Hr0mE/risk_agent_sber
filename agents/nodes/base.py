@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any
+from langgraph.graph import MessagesState
 from agents.state_management import (
-    ReasoningState, 
     Command
 )
 import logging
@@ -32,7 +32,7 @@ class BaseNode(ABC):
         self._validate_dependencies()
 
     def _validate_dependencies(self): #TODO добавить проекрку на наличие моделей/инструментов
-        """Проверка необходимых зависимостей при инициализации"""
+        """Проверка необходимых ReasoningState при инициализации"""
         pass
 
     def get_name(self) -> str:
@@ -42,7 +42,7 @@ class BaseNode(ABC):
         return self.name
 
     @abstractmethod
-    def execute(self, state: ReasoningState) -> Command:
+    def execute(self, state: MessagesState) -> Command:
         """Основной метод обработки состояния.
         
         Args:
@@ -53,7 +53,7 @@ class BaseNode(ABC):
         """
         pass
 
-    def __call__(self, state: ReasoningState) -> Command:
+    def __call__(self, state: MessagesState) -> Command:
         """Альтернативный интерфейс для выполнения ноды"""
         logger.debug(f"Executing node: {self.name}")
         return self.execute(state)

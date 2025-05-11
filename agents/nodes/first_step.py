@@ -38,8 +38,8 @@ class FirstStepNode(BaseNode):
         chain = prompt | model | self.parser
         
         result = chain.invoke({
-            "user_question": state.user_question,
-            "last_reason": state.last_reason
+            "user_question": state.get("user_question", ""),
+            "last_reason": state.get("last_reason", "")
         })
                 
         return Command(

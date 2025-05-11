@@ -23,11 +23,11 @@ class WriteNode(BaseNode):
         chain = prompt | model | StrOutputParser()
         
         result = chain.invoke({
-                "user_question": state.user_question,
-                "last_reason": state.last_reason,
-                "search_results": state.search_results,
-                "rag_results": state.rag_results
-            })
+            "user_question": state.get("user_question", ""),
+            "last_reason": state.get("last_reason", ""),
+            "search_results": state.get("search_results", {}),
+            "rag_results": state.get("rag_results", {})
+        })
                 
         return Command(
             update={

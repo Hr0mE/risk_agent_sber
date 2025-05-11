@@ -33,12 +33,12 @@ class CritiqueNode(BaseNode):
         chain = prompt | model | self.parser
         
         result = chain.invoke({
-            "user_question": state.user_question,
-            "last_reason": state.last_reason,
-            "last_answer": state.last_answer,
-            "old_critique": state.critique,
-            "search_results": state.search_results,
-            "rag_results": state.rag_results
+            "user_question": state.get("user_question", ""),
+            "last_reason": state.get("last_reason", ""),
+            "last_answer": state.get("last_answer", ""),
+            "old_critique": state.get("critique", ""),
+            "search_results": state.get("search_results", {}),
+            "rag_results": state.get("rag_results", {})
         })
                 
         return Command(
