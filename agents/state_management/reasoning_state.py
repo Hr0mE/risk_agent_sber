@@ -17,5 +17,6 @@ class ReasoningState(MessagesState):
   is_info_in_memory: bool
   manner: MannerInfo
   remaining_steps_to_check_manner: int
-  question: str  # TODO: поменять в faq на user_question
+  # question: str  # TODO: поменять в faq на user_question
   raw_questions: List[str]
+  faq: List[Dict[str, List[str]]]
