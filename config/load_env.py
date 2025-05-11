@@ -12,7 +12,7 @@ def load_environment():
         print(f"Warning: {env_file} not found, using system environment variables")
 
 def validate_environment():
-    required_vars = ["HF_TOKEN", "MISTRAL_API_KEY", 'TAVILY_API_KEY']
+    required_vars = ["HF_TOKEN", "MISTRAL_API_KEY", 'TAVILY_API_KEY', 'REDIS_URL']
     missing = [var for var in required_vars if not os.getenv(var)]
     if missing:
         raise EnvironmentError(f"Missing required env vars: {missing}")

@@ -3,10 +3,10 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser, StrOutputParser
 from agents.nodes.base import BaseNode
 from agents.state_management import (
-    ReasoningState, 
     Command,
     NodeNames
 )
+from langgraph.graph import MessagesState
 from agents.state_management.critique_model import CritiqueDecisionModel
 from models import MistralLargeModel as model
 from agents.prompts.base import PromptManager
@@ -20,7 +20,7 @@ class CritiqueNode(BaseNode):
         self.prompt_template = "system/critique.j2"
     
     
-    def execute(self, state: ReasoningState) -> Command:
+    def execute(self, state: MessagesState) -> Command:
         # Рендеринг промпта
         template = self.prompt_manager.render(
             self.prompt_template,

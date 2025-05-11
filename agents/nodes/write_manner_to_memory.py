@@ -1,16 +1,17 @@
 from agents.nodes.base import BaseNode
 from langchain_core.runnables import RunnableConfig
 from agents.state_management import (
-    MannerState,
-    Command
+    Command,
+    NodeNames,
 )
-
+from database import memory_store
+from langgraph.graph import MessagesState
 
 class WriteMannerToMemoryNode(BaseNode):
   def __init__(self, name = None):
-    super().__init__(name)
+    super().__init__(name=NodeNames.WRITE_MANNER.value)
 
-  def execute(self, state: MannerState, config: RunnableConfig):
+  def execute(self, state: MessagesState, config: RunnableConfig):
     if state.get("is_info_in_memory", False):
       user_uuid, memory_uuid = config["metadata"]["user_uuid"], config["metadata"]["memory_uuid"]
 

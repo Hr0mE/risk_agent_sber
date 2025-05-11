@@ -1,11 +1,10 @@
 from agents.nodes.base import BaseNode
 from agents.prompts.base import PromptManager
 from agents.state_management import (
-    ReasoningState, 
     NodeNames,
     Command
 )
-from agents.state_management.reasoning_state import ReasoningState
+from langgraph.graph import MessagesState
 from langchain_core.output_parsers import StrOutputParser
 from models import MistralLargeModel as model
 import time # Нужен для создания задержки из-за ограничения в кол-во запросов к модели
@@ -21,7 +20,7 @@ class FinalizeNode(BaseNode):
         #TODO сделать проверку через конфиг
         #self.config = FinalizePromptConfig
 
-    def execute(self, state: ReasoningState) -> dict:
+    def execute(self, state: MessagesState) -> dict:
         prompt = self.prompt_manager.create_chat_raw_prompt(
             self.prompt_template
         )

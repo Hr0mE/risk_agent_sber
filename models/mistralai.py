@@ -5,6 +5,7 @@ from .config.models import MistralLargeAPIConfig, MistralEmbedAPIConfig
 from time import sleep
 
 class MistralLargeModel(BaseAPIModel):    
+    # В reason вылетает ошибка, т.к. __init__ принимает config в self.chain. С другим именем работает
     def __init__(self, config: MistralLargeAPIConfig):
         super().__init__(config)
         self.config = config

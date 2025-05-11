@@ -1,10 +1,10 @@
 from agents.nodes.base import BaseNode
 from langchain_community.vectorstores.faiss import FAISS
 from agents.state_management import (
-    ReasoningState, 
     NodeNames,
     Command
 )
+from langgraph.graph import MessagesState
 from models import MistralEmbedModel as embed
 
 #TODO Настроить температуру
@@ -13,7 +13,7 @@ class RagNode(BaseNode):
     def __init__(self):
         super().__init__(name=NodeNames.RAG.value)
 
-    def execute(self, state: ReasoningState) -> dict:
+    def execute(self, state: MessagesState) -> dict:
         vectorstore = FAISS.load_local("./faiss_db", embed, allow_dangerous_deserialization=True)
         retriever = vectorstore.as_retriever()
 

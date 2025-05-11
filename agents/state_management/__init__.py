@@ -1,21 +1,18 @@
-from .reasoning_state import ReasoningState
+from .reasoning_state import GlobalState
 from .first_step_model import FirstStepDecisionModel
 from .critique_model import CritiqueDecisionModel
 from .commands import Command, NodeNames
 
-from .manner_state import MannerState
 from .manner_model import MannerInfo
-from .faq_state import FAQState
-from .faq_model import FAQItem
+from .extractors_outputs import ExtractorOutput, FAQExtractorOutput
 
 __all__ = [
-    "ReasoningState", 
+    "GlobalState", 
     "FirstStepDecisionModel", 
     "CritiqueDecisionModel", 
     "Command", 
     "NodeNames",
-    "MannerState",
     "MannerInfo",
-    "FAQState",
-    "FAQItem"
+    "ExtractorOutput",
+    "FAQExtractorOutput"
 ]

@@ -2,16 +2,15 @@ from agents.nodes.base import BaseNode
 from langchain_core.runnables import RunnableConfig
 from agents.state_management import (
     Command,
-    MannerInfo,
     NodeNames
 )
 from database import memory_store
 from langgraph.graph import MessagesState
 
 
-class GetMannerFromMemoryNode(BaseNode):
+class GetFAQFromMemoryNode(BaseNode):
   def __init__(self, name = None):
-    super().__init__(name=NodeNames.GET_MANNER.value)
+    super().__init__(name=NodeNames.GET_FAQ.value)
 
   def execute(self, state: MessagesState, config: RunnableConfig):
     user_uuid = config["metadata"]["user_uuid"]
@@ -19,13 +18,12 @@ class GetMannerFromMemoryNode(BaseNode):
     results = memory_store.search(namespace)
 
     memory_item = results[-1].dict() if results else None
-    manner_item = memory_item["value"].get("manner", None) if memory_item else None
-    manner = MannerInfo(**manner_item) if manner_item else None
+    faq_list= memory_item["value"].get("faq", None) if memory_item else None
 
-    if manner:
+    if faq_list:
       return Command(
         update={
-          "manner": manner
+          "faq": faq_list
         }
       )
     
