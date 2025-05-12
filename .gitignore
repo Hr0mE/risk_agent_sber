@@ -1,5 +1,5 @@
 # Byte-compiled / optimized / DLL files
-*/__pycache__
+*__pycache__
 *.py[cod]
 *$py.class
 python-version
@@ -67,9 +67,8 @@ __pypackages__/
 
 
 # Environments
-.env
+*.env
 .venv
-env/
 venv/
 ENV/
 env.bak/
