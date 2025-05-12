@@ -5,6 +5,7 @@ from agents.state_management import (
     NodeNames,
     Command
 )
+from langgraph.graph import MessagesState
 from models import MistralEmbedModel as embed
 
 #TODO Настроить температуру

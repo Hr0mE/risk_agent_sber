@@ -76,7 +76,6 @@ env.bak/
 venv.bak/
 
 # Databases
-database/
 .pdf
 .docx
 .doc

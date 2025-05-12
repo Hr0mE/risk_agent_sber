@@ -33,12 +33,13 @@ class BaseAPIModel(BaseModel):
 
     def _validate(self):
         """Базовая валидация API ключа"""
-        if self.config.api_key_env:
-            self.config.api_key = os.getenv(self.config.api_key_env)
-        if self.config.api_key:
-            pass
-        else:
-            raise ValueError("API key is required")
+        # if self.config.api_key_env:
+        #     self.config.api_key = os.getenv(self.config.api_key_env)
+        # if self.config.api_key:
+        #     pass
+        # else:
+        #     raise ValueError("API key is required")
+        pass
     
     @abstractmethod
     def _initialize(self):

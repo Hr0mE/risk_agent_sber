@@ -5,6 +5,7 @@ from agents.state_management import (
     NodeNames,
     Command
 )
+from langgraph.graph import MessagesState
 
 class SearchNode(BaseNode):
     def __init__(self):

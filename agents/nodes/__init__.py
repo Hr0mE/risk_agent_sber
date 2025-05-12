@@ -9,6 +9,10 @@ from .write import WriteNode
 from .extract_conversation_style import MannerExtractNode
 from .write_manner_to_memory import WriteMannerToMemoryNode
 from .get_memory_manner import GetMannerFromMemoryNode
+from .store_question import StoreQuestionNode
+from .extract_faq import FAQExtractNode
+from .write_faq import FAQWriteNode
+from .get_memory_faq import GetFAQFromMemoryNode
 
 __all__ = [
     'FirstStepNode',
@@ -21,4 +25,8 @@ __all__ = [
     'MannerExtractNode',
     'WriteMannerToMemoryNode',
     'GetMannerFromMemoryNode',
+    'StoreQuestionNode',
+    'FAQExtractNode',
+    'FAQWriteNode',
+    'GetFAQFromMemoryNode',
 ]

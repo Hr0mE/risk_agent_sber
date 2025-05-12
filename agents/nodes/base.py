@@ -19,7 +19,7 @@ class BaseNode(ABC):
     
     Пример использования:
     class MyNode(BaseNode):
-        def execute(self, state: ReasoningState) -> Dict[str, Any]:
+        def execute(self, state: MessagesState) -> Dict[str, Any]:
             # Логика обработки состояния
             return Command(
                 update={"new_key": "value"},

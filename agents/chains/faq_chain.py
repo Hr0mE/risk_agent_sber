@@ -3,19 +3,21 @@ from agents import nodes
 from .base import BaseChain
 
 
-class MannerExecutionChain(BaseChain):
+class FAQExecutionChain(BaseChain):
   def __init__(self):
     super().__init__()
 
     node_list = [
-      nodes.MannerExtractNode,
-      nodes.WriteMannerToMemoryNode,
-      nodes.GetMannerFromMemoryNode,
+      nodes.StoreQuestionNode,
+      nodes.FAQExtractNode,
+      nodes.FAQWriteNode,
+      nodes.GetFAQFromMemoryNode,
     ]
 
     edge_list = [
-      (nodes.MannerExtractNode, nodes.WriteMannerToMemoryNode),
-      (nodes.WriteMannerToMemoryNode, nodes.GetMannerFromMemoryNode)
+      (nodes.StoreQuestionNode, nodes.FAQExtractNode),
+      (nodes.FAQExtractNode, nodes.FAQWriteNode),
+      (nodes.FAQWriteNode, nodes.GetFAQFromMemoryNode),
     ]
 
     for node in node_list:

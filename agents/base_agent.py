@@ -38,6 +38,7 @@ async def main():
     inputs = {"user_question": "Какие сроки установлены для представления головной кредитной организацией отчётов о расчёте операционного риска банковской группы в Банк России?"}
     
     await BaseAgent(inputs=inputs).run()
+    
 
 if __name__ == "__main__":
     asyncio.run(main())

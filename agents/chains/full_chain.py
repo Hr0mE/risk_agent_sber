@@ -9,6 +9,15 @@ class FullExecutionChain(BaseChain):
         super().__init__()
         
         node_list: List[nodes.BaseNode] = [
+            nodes.MannerExtractNode,
+            nodes.WriteMannerToMemoryNode,
+            nodes.GetMannerFromMemoryNode,
+
+            nodes.StoreQuestionNode,
+            nodes.FAQExtractNode,
+            nodes.FAQWriteNode,
+            nodes.GetFAQFromMemoryNode,
+
             nodes.RagNode,
             nodes.CritiqueNode,
             nodes.FinalizeNode,
@@ -20,6 +29,15 @@ class FullExecutionChain(BaseChain):
 
         #TODO попробовать по-максимуму убрать goto и перенести всё сюда
         edge_list = [
+            # (nodes...., nodes.MannerExtractNode),  #  TODO: нода декомпозиции(по картинке то)
+            (nodes.MannerExtractNode, nodes.WriteMannerToMemoryNode),
+            (nodes.WriteMannerToMemoryNode, nodes.GetMannerFromMemoryNode),
+
+            (nodes.GetMannerFromMemoryNode, nodes.StoreQuestionNode),
+            (nodes.StoreQuestionNode, nodes.FAQExtractNode),
+            (nodes.FAQExtractNode, nodes.FAQWriteNode),
+            (nodes.FAQWriteNode, nodes.GetFAQFromMemoryNode),
+
             (nodes.ReasonNode, nodes.FirstStepNode),
             (nodes.WriteNode, nodes.CritiqueNode),
             (nodes.SearchNode, nodes.WriteNode),
