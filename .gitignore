@@ -76,13 +76,14 @@ env.bak/
 venv.bak/
 
 # Databases
-.pdf
-.docx
-.doc
-.xlsx
-.xls
-.index
-.pkl
+
+*.pdf
+*.docx
+*.doc
+*.xlsx
+*.xls
+*.faiss
+*.pkl
 
 # mypy
 .mypy_cache/
