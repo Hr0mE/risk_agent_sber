@@ -1,11 +1,10 @@
 from agents.nodes.base import BaseNode
 from agents.prompts.base import PromptManager
 from agents.state_management import (
-    ReasoningState, 
+    GlobalState, 
     NodeNames,
     Command
 )
-from agents.state_management.reasoning_state import ReasoningState
 from langchain_core.output_parsers import StrOutputParser
 from models import MistralLargeModel as model
 
@@ -16,14 +15,16 @@ class ReasonNode(BaseNode):
         
         self.prompt_manager = PromptManager()
         self.prompt_template = 'system/reason.j2'
+        #TODO сделать конфиг для модели
+        self.model = model #model(config=ModelConfig)
         #TODO сделать проверку через конфиг
         #self.config = ReasonPromptConfig
 
-    def execute(self, state: ReasoningState) -> dict:
+    def execute(self, state: GlobalState) -> dict:
         prompt = self.prompt_manager.create_chat_raw_prompt(
             self.prompt_template
         )
-        self.chain = prompt | model | StrOutputParser()
+        self.chain = prompt | self.model | StrOutputParser()
         
         # Выполнение цепочки обработки
         result = self.chain.invoke({

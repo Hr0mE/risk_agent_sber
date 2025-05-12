@@ -16,9 +16,9 @@ class WriteMannerToMemoryNode(BaseNode):
 
       namespace = ("user_info", user_uuid)
 
-      curr_memory_data = memory_store.get(namespace, memory_uuid) or {}
-      curr_val = curr_memory_data.value if curr_memory_data != {} else {} 
-      curr_val["manner"] = state["manner"]
-      memory_store.put(namespace, memory_uuid, curr_val)
+      #curr_memory_data = memory_store.get(namespace, memory_uuid) or {}
+      #curr_val = curr_memory_data.value if curr_memory_data != {} else {} 
+      #curr_val["manner"] = state["manner"]
+      #memory_store.put(namespace, memory_uuid, curr_val)
     
     return Command()

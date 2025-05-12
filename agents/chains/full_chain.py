@@ -21,7 +21,7 @@ class FullExecutionChain(BaseChain):
         #TODO попробовать по-максимуму убрать goto и перенести всё сюда
         edge_list = [
             (nodes.ReasonNode, nodes.FirstStepNode),
-            #(nodes.WriteNode, nodes.CritiqueNode),
+            (nodes.WriteNode, nodes.CritiqueNode),
             (nodes.SearchNode, nodes.WriteNode),
             (nodes.RagNode, nodes.WriteNode),
         ]

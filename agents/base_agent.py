@@ -2,7 +2,7 @@ from langgraph.graph import StateGraph
 from typing import Dict
 
 from agents.chains import FullExecutionChain as chain
-from agents.state_management import ReasoningState as state
+from agents.state_management import GlobalState as state
 from config import load_environment, validate_environment
 import asyncio
 

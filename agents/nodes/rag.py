@@ -1,7 +1,7 @@
 from agents.nodes.base import BaseNode
 from langchain_community.vectorstores.faiss import FAISS
 from agents.state_management import (
-    ReasoningState, 
+    GlobalState, 
     NodeNames,
     Command
 )
@@ -13,7 +13,7 @@ class RagNode(BaseNode):
     def __init__(self):
         super().__init__(name=NodeNames.RAG.value)
 
-    def execute(self, state: ReasoningState) -> dict:
+    def execute(self, state: GlobalState) -> dict:
         vectorstore = FAISS.load_local("./faiss_db", embed, allow_dangerous_deserialization=True)
         retriever = vectorstore.as_retriever()
 

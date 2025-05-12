@@ -3,7 +3,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser, StrOutputParser
 from agents.nodes.base import BaseNode
 from agents.state_management import (
-    ReasoningState, 
+    GlobalState, 
     Command,
     NodeNames
 )
@@ -20,7 +20,7 @@ class CritiqueNode(BaseNode):
         self.prompt_template = "system/critique.j2"
     
     
-    def execute(self, state: ReasoningState) -> Command:
+    def execute(self, state: GlobalState) -> Command:
         # Рендеринг промпта
         template = self.prompt_manager.render(
             self.prompt_template,
