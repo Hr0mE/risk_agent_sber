@@ -8,15 +8,16 @@ class MistralLargeModel(BaseAPIModel):
     # В reason вылетает ошибка, т.к. __init__ принимает config в self.chain. С другим именем работает
     def __init__(self, config: MistralLargeAPIConfig):
         super().__init__(config)
-        self.config = config
     
     def _initialize(self):
+        print(self.config.api_key)
         self.model = ChatMistralAI(
             model=self.config.model_name,
             temperature=self.config.temperature,
             max_tokens=self.config.max_tokens,
             mistral_api_key=self.config.api_key,
         )
+
     
     def invoke(self, prompt: str) -> str:
         # Потому что мистраль выдаёт 429 ошибку при частых запросах

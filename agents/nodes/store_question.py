@@ -7,7 +7,7 @@ from langgraph.graph import MessagesState
 
 
 class StoreQuestionNode(BaseNode):
-  def __init__(self, name=None):
+  def __init__(self):
     super().__init__(name=NodeNames.STORE_QUESTION.value)
 
   def execute(self, state: MessagesState):

@@ -1,7 +1,6 @@
-#models/base.py
 import os
 from abc import ABC, abstractmethod
-from .config.base import BaseModelConfig, BaseAPIConfig, BaseLocalConfig
+from .config.base import BaseModelConfig, BaseAPIConfig
 
 class BaseModel(ABC):
     """Абстрактный интерфейс модели"""
@@ -33,13 +32,12 @@ class BaseAPIModel(BaseModel):
 
     def _validate(self):
         """Базовая валидация API ключа"""
-        # if self.config.api_key_env:
-        #     self.config.api_key = os.getenv(self.config.api_key_env)
-        # if self.config.api_key:
-        #     pass
-        # else:
-        #     raise ValueError("API key is required")
-        pass
+        if self.config.api_key_env:
+            self.config.api_key = os.getenv(self.config.api_key_env)
+        if self.config.api_key:
+            pass
+        else:
+            raise ValueError("API key is required")
     
     @abstractmethod
     def _initialize(self):
@@ -52,3 +50,6 @@ class BaseAPIModel(BaseModel):
             return result.content
         except Exception as e:
             raise RuntimeError(f"Generation failed: {str(e)}")
+        
+    def __call__(self, prompt: str):
+        return self.invoke(prompt)

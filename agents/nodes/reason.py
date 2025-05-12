@@ -7,6 +7,7 @@ from agents.state_management import (
 )
 from langchain_core.output_parsers import StrOutputParser
 from models import MistralLargeModel as model
+from models.config import MistralLargeAPIConfig as model_config
 
 
 class ReasonNode(BaseNode):
@@ -15,8 +16,8 @@ class ReasonNode(BaseNode):
         
         self.prompt_manager = PromptManager()
         self.prompt_template = 'system/reason.j2'
-        #TODO сделать конфиг для модели
-        self.model = model #model(config=ModelConfig)
+
+        self.model = model(config=model_config())
         #TODO сделать проверку через конфиг
         #self.config = ReasonPromptConfig
 

@@ -10,14 +10,17 @@ from langgraph.graph import MessagesState
 from models import MistralLargeModel as model
 from langchain_core.output_parsers import JsonOutputParser
 from agents.state_management import FAQExtractorOutput
+from models.config import MistralLargeAPIConfig as model_config
 
 
 class FAQExtractNode(BaseNode):
-  def __init__(self, name = None):
+  def __init__(self):
     super().__init__(name=NodeNames.EXTRACT_FAQ.value)
     self.parser = JsonOutputParser(pydantic_object=FAQExtractorOutput)
     self.prompt_manager = PromptManager()
     self.prompt_template = "system/faq_extract.j2"
+    self.model = model(config=model_config())
+
 
   def execute(self, state: MessagesState):
     questions = state.get("raw_questions", [])
@@ -37,7 +40,7 @@ class FAQExtractNode(BaseNode):
 
     prompt = ChatPromptTemplate.from_messages([("system", template)])
 
-    chain = prompt | model | self.parser
+    chain = prompt | self.model | self.parser
 
     result = chain.invoke({
       "all_questions": format_questions,

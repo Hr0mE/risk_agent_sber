@@ -9,7 +9,7 @@ from langgraph.graph import MessagesState
 
 
 class GetFAQFromMemoryNode(BaseNode):
-  def __init__(self, name = None):
+  def __init__(self):
     super().__init__(name=NodeNames.GET_FAQ.value)
 
   def execute(self, state: MessagesState, config: RunnableConfig):

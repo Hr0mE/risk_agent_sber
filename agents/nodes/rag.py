@@ -5,17 +5,19 @@ from agents.state_management import (
     NodeNames,
     Command
 )
-from langgraph.graph import MessagesState
 from models import MistralEmbedModel as embed
+from models.config import MistralEmbedAPIConfig as model_config
+
 
 #TODO Настроить температуру
 
 class RagNode(BaseNode):
     def __init__(self):
         super().__init__(name=NodeNames.RAG.value)
+        self.model = embed(config=model_config())
 
     def execute(self, state: GlobalState) -> dict:
-        vectorstore = FAISS.load_local("./faiss_db", embed, allow_dangerous_deserialization=True)
+        vectorstore = FAISS.load_local("./faiss_db", self.model, allow_dangerous_deserialization=True)
         retriever = vectorstore.as_retriever()
 
         #TODO Выдавать не один результат, а сразу много

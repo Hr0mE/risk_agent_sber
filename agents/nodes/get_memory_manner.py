@@ -10,7 +10,7 @@ from langgraph.graph import MessagesState
 
 
 class GetMannerFromMemoryNode(BaseNode):
-  def __init__(self, name = None):
+  def __init__(self):
     super().__init__(name=NodeNames.GET_MANNER.value)
 
   def execute(self, state: MessagesState, config: RunnableConfig):

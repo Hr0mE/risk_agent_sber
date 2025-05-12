@@ -7,23 +7,27 @@ from agents.state_management import (
 )
 from langchain_core.output_parsers import StrOutputParser
 from models import MistralLargeModel as model
+from models.config import MistralLargeAPIConfig as model_config
 
 
 class FinalizeNode(BaseNode):
     def __init__(self):
         super().__init__(name=NodeNames.FINALIZE.value)
         
+        self.model = model(config=model_config())
+
+
         self.prompt_manager = PromptManager()
         self.prompt_template = 'system/finalize.j2'
         
         #TODO сделать проверку через конфиг
-        #self.config = FinalizePromptConfig
+        #self.prompt_config = FinalizePromptConfig
 
     def execute(self, state: GlobalState) -> dict:
         prompt = self.prompt_manager.create_chat_raw_prompt(
             self.prompt_template
         )
-        self.chain = prompt | model | StrOutputParser()
+        self.chain = prompt | self.model | StrOutputParser()
         
         # Выполнение цепочки обработки
         result = self.chain.invoke({

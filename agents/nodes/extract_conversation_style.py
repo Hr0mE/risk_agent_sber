@@ -12,14 +12,16 @@ from agents.state_management import ExtractorOutput
 from langchain_core.runnables import RunnableConfig
 from langchain_core.messages import HumanMessage
 from langgraph.graph import MessagesState
+from models.config import MistralLargeAPIConfig as model_config
 
 
 class MannerExtractNode(BaseNode):
-  def __init__(self, name = None):
+  def __init__(self):
     super().__init__(name=NodeNames.EXTRACT_MANNER.value)
     self.parser = JsonOutputParser(pydantic_object=ExtractorOutput)
     self.prompt_manager = PromptManager()
     self.prompt_template = "system/manner_extract.j2"
+    self.model = model(config=model_config())
 
   def execute(self, state: MessagesState, config: RunnableConfig):
     # Если в памяти что-то есть и не пришла пора извлекать манеру, то не извлекаем ее(уменьшаем шаги на 1)
@@ -43,7 +45,7 @@ class MannerExtractNode(BaseNode):
     )
     prompt = ChatPromptTemplate.from_messages([("system", template)])
 
-    chain = prompt | model | self.parser
+    chain = prompt | self.model | self.parser
 
     result = chain.invoke({
       "query": messages_for_prompt,

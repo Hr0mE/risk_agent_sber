@@ -7,9 +7,11 @@ from agents.state_management import (
     Command,
     NodeNames
 )
-from langgraph.graph import MessagesState
 from agents.state_management.critique_model import CritiqueDecisionModel
+
 from models import MistralLargeModel as model
+from models.config import MistralLargeAPIConfig as model_config
+
 from agents.prompts.base import PromptManager
 from agents.edges.conditions import ConditionHandler
 
@@ -19,6 +21,8 @@ class CritiqueNode(BaseNode):
         self.parser = PydanticOutputParser(pydantic_object=CritiqueDecisionModel)
         self.prompt_manager = PromptManager()
         self.prompt_template = "system/critique.j2"
+        self.model = model(config=model_config())
+        
     
     
     def execute(self, state: GlobalState) -> Command:
@@ -31,7 +35,7 @@ class CritiqueNode(BaseNode):
         )
         
         prompt = ChatPromptTemplate.from_messages([("system", template)])
-        chain = prompt | model | self.parser
+        chain = prompt | self.model | self.parser
         
         result = chain.invoke({
             "user_question": state.get("user_question", ""),
