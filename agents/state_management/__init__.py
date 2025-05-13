@@ -5,6 +5,7 @@ from .commands import NodeNames
 
 from .manner_model import MannerInfo
 from .extractors_outputs import ExtractorOutput, FAQExtractorOutput
+from .question_decomposition import QuestionDecompositionModel
 
 __all__ = [
     "GlobalState", 
@@ -13,5 +14,6 @@ __all__ = [
     "NodeNames",
     "MannerInfo",
     "ExtractorOutput",
-    "FAQExtractorOutput"
+    "FAQExtractorOutput",
+    "QuestionDecompositionModel"
 ]

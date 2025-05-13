@@ -12,9 +12,13 @@ class SearchNode(BaseNode):
 
     def execute(self, state: GlobalState) -> dict:
         tavily_client = TavilyClient()
-        response = tavily_client.search(state.search_query)
+        
+        search_query: str = state.get("search_query") 
+        if not search_query:
+            raise ValueError(f"Поле search_query в {state} ({type(state)}) не должно быть пустым")
+        response = tavily_client.search(search_query)
         result = state.get("search_results", {})
-        result[state.search_query] = response
+        result[search_query] = response
         return Command(
             update={"search_results": result}
         )

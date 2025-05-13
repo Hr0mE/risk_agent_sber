@@ -9,6 +9,7 @@ class OnlySearchChain(BaseChain):
         super().__init__()
         
         node_list: List[nodes.BaseNode] = [
+            nodes.QuestionDecompositionNode,
             nodes.RagNode,
             nodes.CritiqueNode,
             nodes.FinalizeNode,
@@ -21,6 +22,7 @@ class OnlySearchChain(BaseChain):
         #TODO попробовать по-максимуму убрать goto и перенести всё сюда
         edge_list = [
             # (nodes...., nodes.MannerExtractNode),  #  TODO: нода декомпозиции(по картинке то)
+            (nodes.QuestionDecompositionNode, nodes.ReasonNode),
             (nodes.ReasonNode, nodes.FirstStepNode),
             (nodes.WriteNode, nodes.CritiqueNode),
             (nodes.SearchNode, nodes.WriteNode),
@@ -36,5 +38,5 @@ class OnlySearchChain(BaseChain):
             self.add_edge(source_edge().get_name(), target_edge().get_name())
      
         # Настройка точек входа/выхода
-        self.set_entry_point(nodes.ReasonNode().get_name())
+        self.set_entry_point(nodes.QuestionDecompositionNode().get_name())
         self.set_exit_point(nodes.FinalizeNode().get_name())

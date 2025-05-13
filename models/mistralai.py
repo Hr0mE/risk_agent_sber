@@ -1,6 +1,6 @@
-# models/mistralai.py
+from typing import List
 from langchain_mistralai import ChatMistralAI, MistralAIEmbeddings
-from .base import BaseAPIModel
+from .base import BaseAPIModel, BaseAPIEmbedModel
 from .config.models import MistralLargeAPIConfig, MistralEmbedAPIConfig
 from time import sleep
 
@@ -31,7 +31,7 @@ class MistralLargeModel(BaseAPIModel):
             yield chunk.content
 
 
-class MistralEmbedModel(BaseAPIModel):    
+class MistralEmbedModel(BaseAPIEmbedModel):    
     def __init__(self, config: MistralEmbedAPIConfig):
         super().__init__(config)
         self.config = config
@@ -41,11 +41,3 @@ class MistralEmbedModel(BaseAPIModel):
             api_key=self.config.api_key, 
             wait_time=1
         )
-    
-    def invoke(self, prompt: str) -> str:
-        response = self.model.invoke(prompt)
-        return response.content
-
-    def stream(self, prompt: str):
-        for chunk in self.model.stream(prompt):
-            yield chunk.content

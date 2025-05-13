@@ -3,6 +3,8 @@ from langgraph.graph import MessagesState
 from .manner_model import MannerInfo
 
 class GlobalState(MessagesState):
+  problem_solving_question: str # Вопрос из ноды QuestionDecomposition, который поможет решить проблему пользователя
+  sub_questions: List[str] # Подвопросы из ноды QuestionDecomposition
   last_reason: str
   user_question: str
   last_answer: str

@@ -22,6 +22,7 @@ class NodeNames(str, Enum):
     WRITE = "write"
     FINALIZE = "finalize"
     CRITIQUE = "critic"
+    QUESTION_DECOMPOSITION = "question_decomposition"
 
     @property
     def meta(self) -> NodeMeta:
@@ -93,5 +94,10 @@ NODE_METADATA: Dict[NodeNames, NodeMeta] = {
         label="Критический анализ",
         description="Проверка и улучшение сгенерированного ответа",
         emoji="🔎"
+    ),
+    NodeNames.QUESTION_DECOMPOSITION: NodeMeta(
+        label="Декомпозиция вопроса",
+        description="Разбиения вопроса на подвопросы и выявление неявных запросов",
+        emoji="🧩"
     )
 }

@@ -19,10 +19,10 @@ from models.config import MistralLargeAPIConfig as model_config
 class FirstStepNode(BaseNode):
     def __init__(self):
         super().__init__(name=NodeNames.FIRST_STEP.value)
-        self.parser = PydanticOutputParser(pydantic_object=output_model())
+        self.parser = PydanticOutputParser(pydantic_object=output_model)
         
         self.prompt_manager = PromptManager()
-        self.prompt_template = "system/first_step_short.j2"
+        self.prompt_template = "system/first_step.j2"
         
         self.model = model(config=model_config())
         
@@ -39,7 +39,6 @@ class FirstStepNode(BaseNode):
             self.prompt_template,
             {
                 "options": self.options,
-                #"format_instructions": self.parser.get_format_instructions()
             }
         )
         
@@ -51,7 +50,7 @@ class FirstStepNode(BaseNode):
             "last_reason": state.get("last_reason", ""),
             "format_instructions": self.parser.get_format_instructions()
         })
-                
+        
         return Command(
             update={
                 "final_decision": result.final_decision,

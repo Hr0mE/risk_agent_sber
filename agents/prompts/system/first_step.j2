@@ -14,7 +14,7 @@
 
 Нужно выбрать следующий шаг:
 {% for option in options %}
-{{ loop.index }}. {{ option.meta.emoji }} {{ option.meta.label }} 
+{{ loop.index }}. {{ option.value }} 
    - {{ option.meta.description }}
 {% endfor %}
 
