@@ -11,7 +11,7 @@ class StoreQuestionNode(BaseNode):
     super().__init__(name=NodeNames.STORE_QUESTION.value)
 
   def execute(self, state: GlobalState):
-    question = state.get("user_question")
+    question = state.get("problem_solving_question")
     if question:
         return Command(update={"raw_questions": state.get("raw_questions", []) + [question]})
 

@@ -2,7 +2,8 @@ from langgraph.graph import StateGraph
 from typing import Dict
 from langchain_core.runnables import RunnableConfig
 
-from agents.chains import OnlySearchChain as chain
+# from agents.chains import OnlySearchChain as chain
+from agents.chains import FullExecutionChain as chain
 #from agents.chains import OnlyMemoryChain as chain
 from agents.state_management import GlobalState as state
 from config import load_environment, validate_environment
