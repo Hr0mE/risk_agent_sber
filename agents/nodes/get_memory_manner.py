@@ -1,19 +1,21 @@
 from agents.nodes.base import BaseNode
 from langchain_core.runnables import RunnableConfig
 from agents.state_management import (
-    Command,
+    # Command,
     MannerInfo,
-    NodeNames
+    NodeNames,
+    GlobalState
 )
 from database import memory_store
 from langgraph.graph import MessagesState
+from langgraph.types import Command
 
 
 class GetMannerFromMemoryNode(BaseNode):
   def __init__(self):
     super().__init__(name=NodeNames.GET_MANNER.value)
 
-  def execute(self, state: MessagesState, config: RunnableConfig):
+  def execute(self, state: GlobalState, config: RunnableConfig):
     user_uuid = config["metadata"]["user_uuid"]
     namespace = ("user_info", user_uuid)
     results = memory_store.search(namespace)

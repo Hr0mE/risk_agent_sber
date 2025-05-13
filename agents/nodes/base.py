@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any
 from langgraph.graph import MessagesState
+from langchain_core.runnables import RunnableConfig
 from agents.state_management import (
     Command
 )
@@ -42,7 +43,7 @@ class BaseNode(ABC):
         return self.name
 
     @abstractmethod
-    def execute(self, state: MessagesState) -> Command:
+    def execute(self, state: MessagesState, config: RunnableConfig = None) -> Command:
         """Основной метод обработки состояния.
         
         Args:

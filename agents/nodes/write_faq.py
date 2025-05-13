@@ -1,9 +1,11 @@
 from agents.nodes.base import BaseNode
 from agents.state_management import (
-    Command,
+    # Command,
     NodeNames,
+    GlobalState
 )
 from langgraph.graph import MessagesState
+from langgraph.types import Command
 from langchain_core.runnables import RunnableConfig
 from utils.similarity_of_topics import find_similar_theme
 from database import memory_store
@@ -13,7 +15,7 @@ class FAQWriteNode(BaseNode):
   def __init__(self):
     super().__init__(name=NodeNames.WRITE_FAQ.value)
 
-  def execute(self, state: MessagesState, config: RunnableConfig):
+  def execute(self, state: GlobalState, config: RunnableConfig):
     if not state.get("faq", []):
       return Command()
     
