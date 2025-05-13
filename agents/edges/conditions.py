@@ -1,6 +1,5 @@
 from agents.state_management import NodeNames
 from agents.state_management.first_step_model import FirstStepDecisionModel
-from agents.state_management import Command
 
 class ConditionHandler:
     @staticmethod

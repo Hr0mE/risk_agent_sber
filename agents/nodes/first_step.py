@@ -39,7 +39,7 @@ class FirstStepNode(BaseNode):
             self.prompt_template,
             {
                 "options": self.options,
-                "format_instructions": self.parser.get_format_instructions()
+                #"format_instructions": self.parser.get_format_instructions()
             }
         )
         
@@ -48,7 +48,8 @@ class FirstStepNode(BaseNode):
         
         result = chain.invoke({
             "user_question": state.get("user_question", ""),
-            "last_reason": state.get("last_reason", "")
+            "last_reason": state.get("last_reason", ""),
+            "format_instructions": self.parser.get_format_instructions()
         })
                 
         return Command(

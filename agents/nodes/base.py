@@ -1,10 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any
 from langgraph.graph import MessagesState
+from langgraph.types import Command
 from langchain_core.runnables import RunnableConfig
-from agents.state_management import (
-    Command
-)
+
 import logging
 
 #TODO вынести логгирование отдельным модулем

@@ -2,9 +2,9 @@ from agents.nodes.base import BaseNode
 from tavily import TavilyClient
 from agents.state_management import (
     GlobalState, 
-    NodeNames,
-    Command
+    NodeNames
 )
+from langgraph.types import Command
 
 class SearchNode(BaseNode):
     def __init__(self):

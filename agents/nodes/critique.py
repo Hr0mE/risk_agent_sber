@@ -26,14 +26,15 @@ class CritiqueNode(BaseNode):
     
     def execute(self, state: GlobalState) -> Command:
         # Рендеринг промпта
-        template = self.prompt_manager.render(
-            self.prompt_template,
-            {
-                "format_instructions": self.parser.get_format_instructions()
-            }
-        )
+        # template = self.prompt_manager.render(
+        #     self.prompt_template,
+        #     {
+        #         "format_instructions": self.parser.get_format_instructions()
+        #     }
+        # )
         
-        prompt = ChatPromptTemplate.from_messages([("system", template)])
+        prompt = self.prompt_manager.create_chat_raw_prompt(self.prompt_template)
+        # prompt = ChatPromptTemplate.from_messages([("system", template)])
         chain = prompt | self.model | self.parser
         
         result = chain.invoke({
@@ -42,7 +43,9 @@ class CritiqueNode(BaseNode):
             "last_answer": state.get("last_answer", ""),
             "old_critique": state.get("critique", ""),
             "search_results": state.get("search_results", {}),
-            "rag_results": state.get("rag_results", {})
+            "rag_results": state.get("rag_results", {}),
+            "format_instructions": self.parser.get_format_instructions()
+
         })
                 
         return Command(
