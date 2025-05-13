@@ -13,7 +13,8 @@ class GetFAQFromMemoryNode(BaseNode):
     super().__init__(name=NodeNames.GET_FAQ.value)
 
   def execute(self, state: GlobalState, config: RunnableConfig):
-    user_uuid = config["metadata"]["user_uuid"]
+    user_uuid = config["configurable"]["metadata"]["user_uuid"]
+    # user_uuid = config["metadata"]["user_uuid"]
     namespace = ("user_info", user_uuid)
     results = memory_store.search(namespace)
 

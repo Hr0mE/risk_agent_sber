@@ -34,11 +34,9 @@ class FullExecutionChain(BaseChain):
             (nodes.StoreQuestionNode, nodes.FAQExtractNode),
             (nodes.FAQExtractNode, nodes.FAQWriteNode),
             (nodes.FAQWriteNode, nodes.GetFAQFromMemoryNode),
-
             (nodes.GetFAQFromMemoryNode, nodes.MannerExtractNode),
             (nodes.MannerExtractNode, nodes.WriteMannerToMemoryNode),
             (nodes.WriteMannerToMemoryNode, nodes.GetMannerFromMemoryNode),
-
             (nodes.GetMannerFromMemoryNode, nodes.ReasonNode),
             (nodes.ReasonNode, nodes.FirstStepNode),
             (nodes.WriteNode, nodes.CritiqueNode),

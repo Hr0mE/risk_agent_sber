@@ -113,3 +113,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# LangGraph Studio
+.langgraph_api

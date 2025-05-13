@@ -1,6 +1,8 @@
 from typing import Dict, List, Tuple, Callable
 from langgraph.graph import StateGraph
 from langgraph.graph import MessagesState
+from langgraph.graph.state import CompiledStateGraph
+from langgraph.types import Checkpointer
 
 # TODO сделать условные переходы
 
@@ -17,7 +19,7 @@ class BaseChain:
         self.entry_point: str = None
         self.exit_point: str = None
 
-    def build(self, state: MessagesState) -> StateGraph:
+    def build(self, state: MessagesState, name: str = None, checkpointer: Checkpointer = None) -> CompiledStateGraph:
         """Собирает граф из зарегистрированных компонентов"""
         self._validate_chain()
         
@@ -37,7 +39,7 @@ class BaseChain:
         if self.exit_point:
             workflow.set_finish_point(self.exit_point)
             
-        return workflow.compile()
+        return workflow.compile(name=name, checkpointer=checkpointer)
 
     def _validate_chain(self) -> None:
         """Проверяет целостность цепочки"""

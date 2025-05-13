@@ -12,9 +12,9 @@ class WriteMannerToMemoryNode(BaseNode):
     super().__init__(name=NodeNames.WRITE_MANNER.value)
 
   def execute(self, state: GlobalState, config: RunnableConfig):
-    print(f"STATE = {state}")
     if state.get("is_info_in_memory", False):
-      user_uuid, memory_uuid = config["metadata"]["user_uuid"], config["metadata"]["memory_uuid"]
+      user_uuid, memory_uuid = config["configurable"]["metadata"]["user_uuid"], config["configurable"]["metadata"]["memory_uuid"]
+      # user_uuid, memory_uuid = config["metadata"]["user_uuid"], config["metadata"]["memory_uuid"]
 
       namespace = ("user_info", user_uuid)
 

@@ -17,7 +17,8 @@ class FAQWriteNode(BaseNode):
     if not state.get("faq", []):
       return Command()
     
-    user_uuid, memory_uuid = config["metadata"]["user_uuid"], config["metadata"]["memory_uuid"]
+    user_uuid, memory_uuid = config["configurable"]["metadata"]["user_uuid"], config["configurable"]["metadata"]["memory_uuid"]
+    # user_uuid, memory_uuid = config["metadata"]["user_uuid"], config["metadata"]["memory_uuid"]
 
     namespace = ("user_info", user_uuid)
     curr_memory_data = memory_store.get(namespace, memory_uuid) or {}

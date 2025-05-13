@@ -1,6 +1,8 @@
 from langgraph.graph import StateGraph
 from typing import Dict
 from langchain_core.runnables import RunnableConfig
+from langgraph.types import Checkpointer
+from langgraph.checkpoint.memory import MemorySaver
 
 # from agents.chains import OnlySearchChain as chain
 from agents.chains import FullExecutionChain as chain
@@ -11,10 +13,10 @@ import asyncio
 
 
 class BaseAgent:
-    def __init__(self, inputs: Dict[str, str] = None, config: RunnableConfig = None):
+    def __init__(self, inputs: Dict[str, str] = None, config: RunnableConfig = None, checkpointer: Checkpointer = None):
         self.inputs = inputs
         self.config = config
-        self.graph = chain().build(state)
+        self.graph = chain().build(state, name="Risk Agent by RD team(отсылка на Роберта Дауни мл.)", checkpointer=checkpointer)
 
     async def run(self) -> StateGraph:
         if not self.inputs:
@@ -47,11 +49,15 @@ async def main():
 
     config = {
         "thread_id": 69, 
-        "user_uuid": "2722D3D2-AD19-4672-9B32-BA2221077262", 
-        "memory_uuid": "2BD632C8-E4D5-456C-BEB0-025C2940D6E1",
+        "configurable": {
+            "metadata": {
+                "user_uuid": "2722D3D2-AD19-4672-9B32-BA2221077262", 
+                "memory_uuid": "2BD632C8-E4D5-456C-BEB0-025C2940D6E1",
+            }
+        }
     }
     
-    await BaseAgent(inputs=inputs, config=config).run()
+    await BaseAgent(inputs=inputs, config=config, checkpointer=MemorySaver()).run()
     
 
 if __name__ == "__main__":
