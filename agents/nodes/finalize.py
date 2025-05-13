@@ -3,8 +3,8 @@ from agents.prompts.base import PromptManager
 from agents.state_management import (
     GlobalState, 
     NodeNames,
-    Command
 )
+from langgraph.types import Command
 from langchain_core.output_parsers import StrOutputParser
 from models import MistralLargeModel as model
 from models.config import MistralLargeAPIConfig as model_config

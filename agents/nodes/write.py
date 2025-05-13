@@ -2,10 +2,9 @@ from langchain_core.output_parsers import StrOutputParser
 from agents.nodes.base import BaseNode
 from agents.state_management import (
     GlobalState, 
-    Command,
     NodeNames
 )
-from langgraph.graph import MessagesState
+from langgraph.types import Command
 from models import MistralLargeModel as model
 from agents.prompts.base import PromptManager
 from models.config import MistralLargeAPIConfig as model_config

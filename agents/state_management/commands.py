@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import TypedDict, NamedTuple, Dict
+from typing import NamedTuple, Dict
 
 class NodeMeta(NamedTuple):
     label: str  # Человекочитаемое название
@@ -26,11 +26,6 @@ class NodeNames(str, Enum):
     @property
     def meta(self) -> NodeMeta:
         return NODE_METADATA[self]
-
-class Command(TypedDict):
-    """Структура команды перехода между нодами"""
-    update: dict  # Обновления для состояния
-    goto: NodeNames  # Следующая нода для выполнения
 
 # Регистрируем метаданные отдельно от логики
 NODE_METADATA: Dict[NodeNames, NodeMeta] = {

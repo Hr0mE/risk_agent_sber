@@ -1,13 +1,14 @@
+from langgraph.types import Command
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 from agents.nodes.base import BaseNode
 from agents.state_management import (
     GlobalState, 
-    Command,
     NodeNames
 )
 
-from agents.state_management.first_step_model import FirstStepDecisionModel
+
+from agents.state_management.first_step_model import FirstStepDecisionModel as output_model
 
 from agents.prompts.base import PromptManager
 from agents.edges.conditions import ConditionHandler
@@ -18,10 +19,10 @@ from models.config import MistralLargeAPIConfig as model_config
 class FirstStepNode(BaseNode):
     def __init__(self):
         super().__init__(name=NodeNames.FIRST_STEP.value)
-        self.parser = PydanticOutputParser(pydantic_object=FirstStepDecisionModel)
+        self.parser = PydanticOutputParser(pydantic_object=output_model())
         
         self.prompt_manager = PromptManager()
-        self.prompt_template = "system/first_step.j2"
+        self.prompt_template = "system/first_step_short.j2"
         
         self.model = model(config=model_config())
         

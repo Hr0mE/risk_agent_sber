@@ -1,9 +1,9 @@
+from langgraph.types import Command
 from agents.nodes.base import BaseNode
 from agents.prompts.base import PromptManager
 from agents.state_management import (
     GlobalState, 
-    NodeNames,
-    Command
+    NodeNames
 )
 from langchain_core.output_parsers import StrOutputParser
 from models import MistralLargeModel as model
@@ -15,7 +15,7 @@ class ReasonNode(BaseNode):
         super().__init__(name=NodeNames.REASON.value)
         
         self.prompt_manager = PromptManager()
-        self.prompt_template = 'system/reason.j2'
+        self.prompt_template = 'system/reason_short.j2'
 
         self.model = model(config=model_config())
         #TODO сделать проверку через конфиг

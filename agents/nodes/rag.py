@@ -1,9 +1,9 @@
+from langgraph.types import Command
 from agents.nodes.base import BaseNode
 from langchain_community.vectorstores.faiss import FAISS
 from agents.state_management import (
     GlobalState, 
     NodeNames,
-    Command
 )
 from models import MistralEmbedModel as embed
 from models.config import MistralEmbedAPIConfig as model_config
