@@ -9,6 +9,7 @@ class OnlyMemoryChain(BaseChain):
         super().__init__()
         
         node_list: List[nodes.BaseNode] = [
+            nodes.QuestionDecompositionNode,
             nodes.MannerExtractNode,
             nodes.WriteMannerToMemoryNode,
             nodes.GetMannerFromMemoryNode,
@@ -23,6 +24,7 @@ class OnlyMemoryChain(BaseChain):
 
         #TODO попробовать по-максимуму убрать goto и перенести всё сюда
         edge_list = [
+            (nodes.QuestionDecompositionNode, nodes.MannerExtractNode),
             (nodes.MannerExtractNode, nodes.WriteMannerToMemoryNode),
             (nodes.WriteMannerToMemoryNode, nodes.GetMannerFromMemoryNode),
 
@@ -43,5 +45,5 @@ class OnlyMemoryChain(BaseChain):
             self.add_edge(source_edge().get_name(), target_edge().get_name())
      
         # Настройка точек входа/выхода
-        self.set_entry_point(nodes.MannerExtractNode().get_name())
+        self.set_entry_point(nodes.QuestionDecompositionNode().get_name())
         self.set_exit_point(nodes.ReasonNode().get_name())
