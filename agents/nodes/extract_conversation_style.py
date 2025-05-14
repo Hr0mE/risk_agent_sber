@@ -24,18 +24,19 @@ class MannerExtractNode(BaseNode):
     self.model = model(config=model_config())
 
   def execute(self, state: GlobalState):
-    # Если в памяти что-то есть и не пришла пора извлекать манеру, то не извлекаем ее(уменьшаем шаги на 1)
+    # Если в памяти что-то есть и не пришла пора извлекать манеру(адаптироваться), то не извлекаем ее(уменьшаем шаги на 1)
     if state.get("is_info_in_memory", False) and state.get("remaining_steps_to_check_manner", -1) != 0:
       return Command(
         update={
+          "is_write_to_memory": False,
           "remaining_steps_to_check_manner": state["remaining_steps_to_check_manner"] - 1,
         }
       ) 
     
     messages = state["messages"]  # Извлекаем ВСЕ сообщения чата
     
-    last_n_human_messages = [m for m in messages if isinstance(m, HumanMessage)][-int(os.getenv("MESSAGES_TO_ANALIZE", 3)):]  # Получаем все сообщения ПОЛЬЗОВАТЕЛЯ
-    messages_for_prompt = "\n".join([f"{i+1}. {message}" for i, message in enumerate(last_n_human_messages)])  # Берем n последних сообщения
+    last_n_human_messages = [m for m in messages if isinstance(m, HumanMessage)][-int(os.getenv("MESSAGES_TO_ANALIZE", 3)):]  # Получаем n последних сообщений ПОЛЬЗОВАТЕЛЯ
+    messages_for_prompt = "\n".join([f"{i+1}. {message}" for i, message in enumerate(last_n_human_messages)])  # Формируем данные в промпт
 
     template = self.prompt_manager.render(
       self.prompt_template, {}
@@ -52,7 +53,7 @@ class MannerExtractNode(BaseNode):
     if result["is_to_memory"]:
       return Command(
         update={
-          "is_info_in_memory": result["is_to_memory"],
+          "is_write_to_memory": result["is_to_memory"],
           "remaining_steps_to_check_manner": int(os.getenv("STEPS_TO_CHECK", 3)),
           "manner": result["manner"],
         }

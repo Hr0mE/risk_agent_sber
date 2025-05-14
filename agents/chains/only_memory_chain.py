@@ -33,7 +33,7 @@ class OnlyMemoryChain(BaseChain):
             (nodes.FAQExtractNode, nodes.FAQWriteNode),
             (nodes.FAQWriteNode, nodes.GetFAQFromMemoryNode),
 
-            (nodes.GetFAQFromMemoryNode, nodes.ReasonNode),
+            # (nodes.GetFAQFromMemoryNode, nodes.ReasonNode),
         ]
 
         # Регистрация нод
@@ -46,4 +46,4 @@ class OnlyMemoryChain(BaseChain):
      
         # Настройка точек входа/выхода
         self.set_entry_point(nodes.QuestionDecompositionNode().get_name())
-        self.set_exit_point(nodes.ReasonNode().get_name())
+        self.set_exit_point(nodes.GetFAQFromMemoryNode().get_name())

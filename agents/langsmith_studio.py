@@ -3,7 +3,8 @@ from uuid import uuid4
 from pydantic import BaseModel, Field
 
 # from agents.chains import OnlySearchChain as chain
-from agents.chains import FullExecutionChain as chain
+# from agents.chains import FullExecutionChain as chain
+from agents.chains import OnlyMemoryChain as chain
 
 # from agents.chains import OnlyMemoryChain as chain
 from agents.state_management import GlobalState as state
@@ -21,19 +22,8 @@ class MetadataConfig(BaseModel):
 generated_user = str(uuid4())
 generated_memory = str(uuid4())
 
-# def build_graph_with_config():
-#   temp_graph = chain().build(state, name="Risk agent with memory")
-
-#   return temp_graph.with_config({
-#     "metadata": {
-#         "user_uuid": generated_user,
-#         "memory_uuid": generated_memory
-#     }
-# })
-
 graph = (
     chain()
     .build(state, name="Risk agent with memory")
     .with_config({"metadata": {"user_uuid": generated_user, "memory_uuid": generated_memory}})
 )
-# graph = build_graph_with_config()

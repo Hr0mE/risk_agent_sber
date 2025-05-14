@@ -16,8 +16,9 @@ class GlobalState(MessagesState):
   rag_query: str
   rag_results: Dict
 
-  is_info_in_memory: bool
-  manner: MannerInfo
-  remaining_steps_to_check_manner: int
-  raw_questions: List[str]
-  faq: List[Dict[str, List[str]]]
+  is_info_in_memory: bool  # Есть ли манера в памяти
+  is_write_to_memory: bool  # Надо ли записывать манеру в память
+  manner: MannerInfo  # Данные о манере
+  remaining_steps_to_check_manner: int  # Подсчет кол-ва шагов для адаптации
+  raw_questions: List[str]  # Буфер вопросов для извлечения
+  faq: List[Dict[str, List[str]]]  # Извлеченные часто задаваемые вопросы, сгруппированые по тематикам

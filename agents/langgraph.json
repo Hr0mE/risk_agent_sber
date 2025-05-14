@@ -1,7 +1,7 @@
 {
   "dependencies": ["."],
   "graphs": {
-    "agent": "./agents/temp.py:graph"
+    "agent": "./agents/langsmith_studio.py:graph"
   },
   "env": "../config/env/dev.env"
 }

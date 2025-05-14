@@ -116,3 +116,6 @@ cython_debug/
 
 # LangGraph Studio
 .langgraph_api
+
+# Мое
+temp2.py

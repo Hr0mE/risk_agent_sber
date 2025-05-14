@@ -47,10 +47,10 @@ class FAQWriteNode(BaseNode):
       curr_val["faq"] = memory_faq
 
 
-      memory_store.put(namespace, memory_uuid, curr_val)
+    memory_store.put(namespace, memory_uuid, curr_val)
 
-      return Command(
-        update={
-          "faq": [],
-        }
-      )
+    return Command(
+      update={
+        "faq": [],
+      }
+    )
