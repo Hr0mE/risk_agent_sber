@@ -81,7 +81,7 @@ venv.bak/
 *.doc
 *.xlsx
 *.xls
-*.faiss
+#*.faiss
 *.pkl
 
 # mypy

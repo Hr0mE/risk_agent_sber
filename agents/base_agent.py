@@ -4,9 +4,10 @@ from langchain_core.runnables import RunnableConfig
 from langgraph.types import Checkpointer
 from langgraph.checkpoint.memory import MemorySaver
 
-from agents.chains import OnlySearchChain as chain
+#from agents.chains import OnlySearchChain as chain
 #from agents.chains import FullExecutionChain as chain
 #from agents.chains import OnlyMemoryChain as chain
+from agents.chains import RagChain as chain
 from agents.state_management import GlobalState as state
 from config import load_environment, validate_environment
 import asyncio
