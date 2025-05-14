@@ -17,6 +17,7 @@ chains/
 
 ## 🎨 Создание своей цепочки
 ```python
+#agents/chain/new_chain.py
 from typing import List
 
 from agents import nodes
@@ -55,6 +56,20 @@ class NewChain(BaseChain):
         self.set_exit_point(nodes.SomeNode3().get_name())
 ```
 
+## 🛠️ Использование
+```python
+#agents/base_agent.py
+from langgraph.graph.state import CompiledStateGraph
+
+from agents.chains import NewChain as chain
+from agents.state_management import SomeState as state
+
+
+graph: CompiledStateGraph = chain().build(state)
+```
+
+Пример смотри в [agents/README.md](../README.md)
+
 ## 📋 Чеклисты цепочек
 
 **Создание цепочки:**
@@ -65,7 +80,7 @@ class NewChain(BaseChain):
 - [ ] Экспортировать цепочку в [`__init__.py`](./__init__.py)
   - [ ] Добавить `from .new_chain.py import NewChain `
   - [ ] Добавить `"NewChain"` в список `__all__`
-
+---
 **Удаление цепочки:**
 - [ ] Удалить файл цепочки `new_chain.py`
 - [ ] Удалить цепочку из [`__init__.py`](./__init__.py)
