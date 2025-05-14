@@ -51,6 +51,9 @@ class BaseChain:
             
         if not self.entry_point:
             raise ValueError("Entry point must be defined")
+        
+        if not self.exit_point:
+            raise ValueError("Exit point must be defined")
             
 
         # Проверяем существование нод в связях
