@@ -28,7 +28,7 @@ class FirstStepNode(BaseNode):
         
         self.options = [ # Ноды, в которые можно перейти из FirstStep 
             NodeNames.FINALIZE,
-            NodeNames.SEARCH,
+            #NodeNames.SEARCH,
             NodeNames.RAG,
             NodeNames.WRITE
         ]

@@ -2,6 +2,7 @@ import os
 from abc import ABC, abstractmethod
 from .config.base import BaseModelConfig, BaseAPIConfig
 from typing import List
+from langchain_core.embeddings import Embeddings
 
 class BaseModel(ABC):
     """Абстрактный интерфейс модели"""
@@ -55,7 +56,7 @@ class BaseAPIModel(BaseModel):
     def __call__(self, prompt: str):
         return self.invoke(prompt)
 
-class BaseAPIEmbedModel(BaseModel):
+class BaseAPIEmbedModel(Embeddings, BaseModel):
     """Базовый класс для API моделей через LangChain"""
     def __init__(self, config: BaseAPIConfig):
         super().__init__(config)
@@ -77,11 +78,14 @@ class BaseAPIEmbedModel(BaseModel):
     def embed_documents(self, documents: List[str]) -> List[List[str]]:
         return self.model.embed_documents(documents)
     
-    def invoke(self, query: str) -> str:
+    def invoke(self, query: str) -> list[float]:
         try:
             return self.model.embed_query(query)
         except Exception as e:
             raise RuntimeError(f"Embedding proccess failed: {str(e)}")
     
+    def embed_query(self, query: str) -> list[float]:
+        return self.invoke(query)
+
     def __call__(self, query: str):
         return self.invoke(query)

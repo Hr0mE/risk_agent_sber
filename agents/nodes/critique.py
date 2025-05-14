@@ -43,7 +43,8 @@ class CritiqueNode(BaseNode):
             update={
                 "final_decision": result.final_decision,
                 "search_query": result.search_query,
-                "rag_query": result.rag_query
+                "rag_query": result.rag_query,
+                "old_critique": result.critique
             },
             goto = ConditionHandler.evaluate_transition(
                 source_node=self.name,

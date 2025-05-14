@@ -6,16 +6,15 @@
 """
 
 
-
 from PyPDF2 import PdfReader
 from langchain_community.vectorstores.faiss import FAISS
-from models import MistralEmbedModel
-from huggingface_hub.hf_api import HfFolder
+from models import NomicEmbedModel as embed
+from models.config import NomicEmbedAPIConfig as model_config
 from langchain.text_splitter import RecursiveCharacterTextSplitter 
 import os
 from typing import List
-
-HfFolder.save_token(os.environ['HF_TOKEN'])
+from pathlib import Path
+from config import load_environment, validate_environment
 
 def split_paragraphs(rawText):
     text_splitter = RecursiveCharacterTextSplitter(
@@ -59,17 +58,24 @@ def load_text(DOCUMENTS_PATH) -> List[str]:
 
 
 def process_documents():
-    DOCUMENTS_PATH = './documents'
-    DESTINATION_PATH = './faiss_db'
+    root_path = Path(__file__).resolve().parents[1] / "database"
+    
+    DOCUMENTS_PATH = 'documents'
+    DESTINATION_PATH = 'faiss_db'
 
-    text_chunks = load_pdfs(DOCUMENTS_PATH)
+    print("LOADING FILES...")
+    text_chunks = load_pdfs(root_path / DOCUMENTS_PATH)
+    print("DONE!")
 
-
-    embed = MistralEmbedModel()
-
-    store = FAISS.from_texts(text_chunks, embed)
+    print("EMBEDDING FILES...")
+    store = FAISS.from_texts(text_chunks, embed(config=model_config()))
+    print("DONE!")
 
     # Запись индекса на диск
-    store.save_local(DESTINATION_PATH)    
-    
+    print(f"SAVING INDEX TO {root_path / DESTINATION_PATH}...")
+    store.save_local(root_path / DESTINATION_PATH)    
+    print("DONE!")
+
+load_environment()
+validate_environment()
 process_documents()

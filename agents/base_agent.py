@@ -63,7 +63,7 @@ async def main():
         config=config, 
         checkpointer=MemorySaver()
     ).run()
-    1
+    
 
 if __name__ == "__main__":
     asyncio.run(main())
