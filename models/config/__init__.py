@@ -1,11 +1,13 @@
 from .models import (
     MistralLargeAPIConfig,
     MistralEmbedAPIConfig,
-    BaseAPIConfig
+    BaseAPIConfig,
+    NomicEmbedAPIConfig
 )
 
 __all__ = [
     "MistralLargeAPIConfig",
     "MistralEmbedAPIConfig",
-    "BaseAPIConfig"   
+    "BaseAPIConfig",
+    "NomicEmbedAPIConfig"
 ]

@@ -5,8 +5,8 @@ from agents.state_management import (
     GlobalState, 
     NodeNames,
 )
-from models import MistralEmbedModel as embed
-from models.config import MistralEmbedAPIConfig as model_config
+from models import NomicEmbedModel as embed
+from models.config import NomicEmbedAPIConfig as model_config
 from pathlib import Path
 
 

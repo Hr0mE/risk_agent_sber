@@ -1,8 +1,10 @@
+from huggingface_hub.hf_api import HfFolder
 from typing import List
 from langchain_mistralai import ChatMistralAI, MistralAIEmbeddings
 from .base import BaseAPIModel, BaseAPIEmbedModel
 from .config.models import MistralLargeAPIConfig, MistralEmbedAPIConfig
 from time import sleep
+import os
 
 class MistralLargeModel(BaseAPIModel):    
     # В reason вылетает ошибка, т.к. __init__ принимает config в self.chain. С другим именем работает
@@ -33,6 +35,7 @@ class MistralLargeModel(BaseAPIModel):
 
 class MistralEmbedModel(BaseAPIEmbedModel):    
     def __init__(self, config: MistralEmbedAPIConfig):
+        HfFolder.save_token(os.environ['HF_TOKEN'])
         super().__init__(config)
         self.config = config
     

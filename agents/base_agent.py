@@ -4,8 +4,8 @@ from langchain_core.runnables import RunnableConfig
 from langgraph.types import Checkpointer
 from langgraph.checkpoint.memory import MemorySaver
 
-# from agents.chains import OnlySearchChain as chain
-from agents.chains import FullExecutionChain as chain
+from agents.chains import OnlySearchChain as chain
+#from agents.chains import FullExecutionChain as chain
 #from agents.chains import OnlyMemoryChain as chain
 from agents.state_management import GlobalState as state
 from config import load_environment, validate_environment
@@ -16,7 +16,7 @@ class BaseAgent:
     def __init__(self, inputs: Dict[str, str] = None, config: RunnableConfig = None, checkpointer: Checkpointer = None):
         self.inputs = inputs
         self.config = config
-        self.graph = chain().build(state, name="Risk Agent by RD team(отсылка на Роберта Дауни мл.)", checkpointer=checkpointer)
+        self.graph = chain().build(state, name="Risk Agent by RD-ml team(отсылка на Роберта Дауни мл.)", checkpointer=checkpointer)
 
     async def run(self) -> StateGraph:
         if not self.inputs:
@@ -57,8 +57,12 @@ async def main():
         }
     }
     
-    await BaseAgent(inputs=inputs, config=config, checkpointer=MemorySaver()).run()
-    
+    await BaseAgent(
+        inputs=inputs, 
+        config=config, 
+        checkpointer=MemorySaver()
+    ).run()
+    1
 
 if __name__ == "__main__":
     asyncio.run(main())

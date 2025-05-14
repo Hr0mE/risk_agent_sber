@@ -17,6 +17,11 @@ class MistralEmbedAPIConfig(BaseAPIConfig):
     api_key_env: str = "MISTRAL_API_KEY"
     api_base: str = "https://api.mistral.ai/v1"
 
+class NomicEmbedAPIConfig(BaseAPIConfig):
+    model_name: str = "nomic-embed-text-v1.5"
+    api_key_env: str = "NOMIC_API_KEY"
+    api_base: str = "https://api-atlas.nomic.ai/v1"
+
 
 class LocalLlamaConfig(BaseLocalConfig):
     model_name: str = "llama-2-7b"

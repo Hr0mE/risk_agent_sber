@@ -14,9 +14,12 @@ class PromptTemplateConfig(BaseModel):
     description: Optional[str] = None
 
 class PromptManager:
-    def __init__(self, templates_dir: str = "agents/prompts"):
+    def __init__(self, templates_dir: str = None):
+        if not templates_dir:
+            self.templates_dir = Path(__file__).resolve().parent
+
         self.env = Environment(
-            loader=FileSystemLoader(templates_dir),
+            loader=FileSystemLoader(self.templates_dir),
             autoescape=select_autoescape(),
             trim_blocks=True,
             lstrip_blocks=True

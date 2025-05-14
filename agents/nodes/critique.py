@@ -25,16 +25,7 @@ class CritiqueNode(BaseNode):
     
     
     def execute(self, state: GlobalState) -> Command:
-        # Рендеринг промпта
-        # template = self.prompt_manager.render(
-        #     self.prompt_template,
-        #     {
-        #         "format_instructions": self.parser.get_format_instructions()
-        #     }
-        # )
-        
         prompt = self.prompt_manager.create_chat_raw_prompt(self.prompt_template)
-        # prompt = ChatPromptTemplate.from_messages([("system", template)])
         chain = prompt | self.model | self.parser
         
         result = chain.invoke({
@@ -52,8 +43,7 @@ class CritiqueNode(BaseNode):
             update={
                 "final_decision": result.final_decision,
                 "search_query": result.search_query,
-                "rag_query": result.rag_query,
-                "critique": result.critique,
+                "rag_query": result.rag_query
             },
             goto = ConditionHandler.evaluate_transition(
                 source_node=self.name,

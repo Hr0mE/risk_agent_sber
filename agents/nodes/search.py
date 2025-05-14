@@ -19,6 +19,7 @@ class SearchNode(BaseNode):
         response = tavily_client.search(search_query)
         result = state.get("search_results", {})
         result[search_query] = response
+        
         return Command(
             update={"search_results": result}
         )
