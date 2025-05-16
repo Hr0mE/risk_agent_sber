@@ -6,7 +6,7 @@ from agents.state_management import (
     GlobalState, 
     NodeNames
 )
-from agents.state_management.critique_model import CritiqueDecisionModel
+from agents.state_management import CritiqueDecisionModel
 
 from models import MistralLargeModel as model
 from models.config import MistralLargeAPIConfig as model_config

@@ -1,6 +1,6 @@
 from typing import Dict, List
 from langgraph.graph import MessagesState
-from .manner_model import MannerInfo
+from .validation_models import MannerInfo
 
 class GlobalState(MessagesState):
   problem_solving_question: str # Вопрос из ноды QuestionDecomposition, который поможет решить проблему пользователя

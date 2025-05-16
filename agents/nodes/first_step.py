@@ -8,7 +8,7 @@ from agents.state_management import (
 )
 
 
-from agents.state_management.first_step_model import FirstStepDecisionModel as output_model
+from agents.state_management import FirstStepDecisionModel as output_model
 
 from agents.prompts.base import PromptManager
 from agents.edges.conditions import ConditionHandler
