@@ -1,6 +1,7 @@
 from .manner_model import MannerInfo
 from pydantic import BaseModel, Field
 from typing import List
+from .faq_model import FAQData
 
 class ExtractorOutput(BaseModel):
   """Ожидаемый вывод из экстактора манеры"""
@@ -14,4 +15,7 @@ class FAQItem(BaseModel):
 
 class FAQExtractorOutput(BaseModel):
   """Ожидаемый вывод из экстрактора вопросов"""
-  items: List[FAQItem]
+  items: List[FAQData]
+# class FAQExtractorOutput(BaseModel):
+#   """Ожидаемый вывод из экстрактора вопросов"""
+#   items: List[FAQItem]

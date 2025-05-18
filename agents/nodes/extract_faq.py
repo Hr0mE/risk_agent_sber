@@ -11,6 +11,7 @@ from agents.state_management import (
   GlobalState,
   NodeNames,
 )
+from agents.state_management.validation_models import Question, Theme, FAQData
 from models import MistralLargeModel as model
 from models.config import MistralLargeAPIConfig as model_config
 
@@ -28,7 +29,11 @@ class FAQExtractNode(BaseNode):
     questions = state.get("raw_questions", [])
 
     if len(questions) < int(os.getenv("QUESTIONS_TO_EXTRACT_FAQ", 5)):
-      return Command()
+      return Command(
+        update={
+          "is_write_faq": False,
+        }
+      )
     
     # TODO: распарсить в Jinja
     format_questions = "\n".join(f"- {q}" for q in questions)
@@ -41,14 +46,28 @@ class FAQExtractNode(BaseNode):
 
     chain = prompt | self.model | self.parser
 
-    result = chain.invoke({
+    output_result = chain.invoke({
       "format_instructions": self.parser.get_format_instructions(),
       "all_questions": format_questions,
-    })
+    })['items']
+    
+    # Обрабатываем данные экстрактора в формат с баллами
+    arr_to_state = []
+    for item in output_result:
+      theme = Theme(text=item['theme']['text'], score=item['theme'].get('score', 1.0))
+      temp_questions = [
+        Question(
+          text=i['text'], 
+          score=i.get('score', 1.0), 
+          send_date=i['send_date']
+        ) for i in item['questions']
+      ]
+      arr_to_state.append(FAQData(theme=theme, questions=temp_questions))
 
     return Command(
       update={
-        "faq": result["items"],
+        "faq": arr_to_state,
         "raw_questions": [],
+        "is_write_faq": True,
       }
     )
