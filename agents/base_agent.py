@@ -10,6 +10,7 @@ from langgraph.types import Checkpointer
 # from agents.chains import OnlySearchChain as chain
 # from agents.chains import FullExecutionChain as chain
 from agents.chains import OnlyMemoryChain as chain
+
 # from agents.chains import RagChain as chain
 from agents.state_management import GlobalState as state
 from config import load_environment, validate_environment
@@ -42,21 +43,23 @@ class BaseAgent:
             # else:
             # print(event)
 
+
 def get_best_question(faq_list):
-    max_theme_score = max(item['theme']['score'] for item in faq_list)
+    max_theme_score = max(item["theme"]["score"] for item in faq_list)
     # Тематики с максимальным баллом
-    top_themes = [item for item in faq_list if item['theme']['score'] == max_theme_score]
+    top_themes = [item for item in faq_list if item["theme"]["score"] == max_theme_score]
 
     if len(top_themes) == 1:
-        questions = top_themes[0]['questions']
-        best_question = max(questions, key=lambda q: q['score'])
-        return best_question['text']
+        questions = top_themes[0]["questions"]
+        best_question = max(questions, key=lambda q: q["score"])
+        return best_question["text"]
     else:
         all_questions = []
         for theme in top_themes:
-            all_questions.extend(theme['questions'])
-        best_question = max(all_questions, key=lambda q: q['score'])
-        return best_question['text']
+            all_questions.extend(theme["questions"])
+        best_question = max(all_questions, key=lambda q: q["score"])
+        return best_question["text"]
+
 
 async def main():
     load_environment()
@@ -74,11 +77,11 @@ async def main():
         # Примерная работа предложения вопроса
         is_new_thread = input("Новый чат?")
         count = 0
-        if is_new_thread.lower() in ['y', 'yeah', 'yes'] and count == 0:
+        if is_new_thread.lower() in ["y", "yeah", "yes"] and count == 0:
             namespace = ("user_info", user_uuid)
             curr_memory_data = memory_store.get(namespace, memory_uuid) or {}
-            curr_val = curr_memory_data.value if curr_memory_data != {} else {} 
-            memory_faq = curr_val.get('faq', None)
+            curr_val = curr_memory_data.value if curr_memory_data != {} else {}
+            memory_faq = curr_val.get("faq", None)
             if memory_faq is not None:
                 suggestion = get_best_question(memory_faq)
                 print(f"\n\033[33mАссистент:\n  Хотитие, отвечу на вопрос:\033[37m {suggestion}")

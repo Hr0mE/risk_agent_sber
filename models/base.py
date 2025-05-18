@@ -4,8 +4,10 @@ from .config.base import BaseModelConfig, BaseAPIConfig
 from typing import List
 from langchain_core.embeddings import Embeddings
 
+
 class BaseModel(ABC):
     """Абстрактный интерфейс модели"""
+
     def __init__(self, config: BaseModelConfig):
         self.config = config
         self._validate()
@@ -29,6 +31,7 @@ class BaseModel(ABC):
 
 class BaseAPIModel(BaseModel):
     """Базовый класс для API моделей через LangChain"""
+
     def __init__(self, config: BaseAPIConfig):
         super().__init__(config)
 
@@ -40,7 +43,7 @@ class BaseAPIModel(BaseModel):
             pass
         else:
             raise ValueError("API key is required")
-    
+
     @abstractmethod
     def _initialize(self):
         """Инициализация модели. В наследниках должно быть определено self.model"""
@@ -52,12 +55,14 @@ class BaseAPIModel(BaseModel):
             return result.content
         except Exception as e:
             raise RuntimeError(f"Generation failed: {str(e)}")
-        
+
     def __call__(self, prompt: str):
         return self.invoke(prompt)
 
+
 class BaseAPIEmbedModel(Embeddings, BaseModel):
     """Базовый класс для API моделей через LangChain"""
+
     def __init__(self, config: BaseAPIConfig):
         super().__init__(config)
 
@@ -69,7 +74,7 @@ class BaseAPIEmbedModel(Embeddings, BaseModel):
             pass
         else:
             raise ValueError("API key is required")
-    
+
     @abstractmethod
     def _initialize(self):
         """Инициализация модели. В наследниках должно быть определено self.model"""
@@ -77,13 +82,13 @@ class BaseAPIEmbedModel(Embeddings, BaseModel):
 
     def embed_documents(self, documents: List[str]) -> List[List[str]]:
         return self.model.embed_documents(documents)
-    
+
     def invoke(self, query: str) -> list[float]:
         try:
             return self.model.embed_query(query)
         except Exception as e:
             raise RuntimeError(f"Embedding proccess failed: {str(e)}")
-    
+
     def embed_query(self, query: str) -> list[float]:
         return self.invoke(query)
 

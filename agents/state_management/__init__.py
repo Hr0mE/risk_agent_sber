@@ -1,22 +1,22 @@
 from .global_state import GlobalState
 from .commands import NodeNames
 from .validation_models import (
-    FirstStepDecisionModel, 
+    FirstStepDecisionModel,
     CritiqueDecisionModel,
     MannerInfo,
     ExtractorOutput,
     FAQExtractorOutput,
-    QuestionDecompositionModel
+    QuestionDecompositionModel,
 )
 
 
 __all__ = [
-    "GlobalState", 
+    "GlobalState",
     "NodeNames",
-    "FirstStepDecisionModel", 
+    "FirstStepDecisionModel",
     "CritiqueDecisionModel",
     "MannerInfo",
     "ExtractorOutput",
     "FAQExtractorOutput",
-    "QuestionDecompositionModel"
+    "QuestionDecompositionModel",
 ]

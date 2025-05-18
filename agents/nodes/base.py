@@ -6,17 +6,18 @@ from langchain_core.runnables import RunnableConfig
 
 import logging
 
-#TODO вынести логгирование отдельным модулем
+# TODO вынести логгирование отдельным модулем
 logger = logging.getLogger(__name__)
+
 
 class BaseNode(ABC):
     """Абстрактный базовый класс для всех нод агента.
-    
+
     Наследники должны реализовать:
     1. Метод execute() с логикой обработки состояния
     2. Собственные промпты и шаблоны при необходимости
     3. Валидацию входных/выходных данных
-    
+
     Пример использования:
     class MyNode(BaseNode):
         def execute(self, state: MessagesState) -> Dict[str, Any]:
@@ -31,7 +32,7 @@ class BaseNode(ABC):
         self.name = name or self.__class__.__name__
         self._validate_dependencies()
 
-    def _validate_dependencies(self): #TODO добавить проекрку на наличие моделей/инструментов
+    def _validate_dependencies(self):  # TODO добавить проекрку на наличие моделей/инструментов
         """Проверка необходимых ReasoningState при инициализации"""
         pass
 
@@ -44,10 +45,10 @@ class BaseNode(ABC):
     @abstractmethod
     def execute(self, state: MessagesState, config: RunnableConfig = None) -> Command:
         """Основной метод обработки состояния.
-        
+
         Args:
             state: Текущее состояние рассуждений агента
-            
+
         Returns:
             Словарь с обновлениями для состояния
         """
@@ -58,5 +59,5 @@ class BaseNode(ABC):
         logger.debug(f"Executing node: {self.name}")
         return self.execute(state)
 
-    def __repr__(self) ->  str:
+    def __repr__(self) -> str:
         return f"<{self.__class__.__name__} '{self.name}'>"

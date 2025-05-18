@@ -14,20 +14,21 @@ from .extract_faq import FAQExtractNode
 from .write_faq import FAQWriteNode
 from .get_memory_faq import GetFAQFromMemoryNode
 from .question_decomposition import QuestionDecompositionNode
+
 __all__ = [
-    'FirstStepNode',
-    'ReasonNode',
-    'CritiqueNode',
-    'RagNode',
-    'SearchNode',
-    'FinalizeNode',
-    'WriteNode',
-    'MannerExtractNode',
-    'WriteMannerToMemoryNode',
-    'GetMannerFromMemoryNode',
-    'StoreQuestionNode',
-    'FAQExtractNode',
-    'FAQWriteNode',
-    'GetFAQFromMemoryNode',
-    "QuestionDecompositionNode"
+    "FirstStepNode",
+    "ReasonNode",
+    "CritiqueNode",
+    "RagNode",
+    "SearchNode",
+    "FinalizeNode",
+    "WriteNode",
+    "MannerExtractNode",
+    "WriteMannerToMemoryNode",
+    "GetMannerFromMemoryNode",
+    "StoreQuestionNode",
+    "FAQExtractNode",
+    "FAQWriteNode",
+    "GetFAQFromMemoryNode",
+    "QuestionDecompositionNode",
 ]

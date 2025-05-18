@@ -8,7 +8,7 @@ from .question_decomposition_model import QuestionDecompositionModel
 
 
 __all__ = [
-    "FirstStepDecisionModel", 
+    "FirstStepDecisionModel",
     "CritiqueDecisionModel",
     "MannerInfo",
     "ExtractorOutput",

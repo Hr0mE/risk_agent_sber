@@ -1,11 +1,7 @@
 from .mistralai import (
-    MistralLargeModel, 
+    MistralLargeModel,
     MistralEmbedModel,
 )
 from .nomicai import NomicEmbedModel
 
-__all__ = [
-    "MistralLargeModel", 
-    "MistralEmbedModel",
-    "NomicEmbedModel"
-]
+__all__ = ["MistralLargeModel", "MistralEmbedModel", "NomicEmbedModel"]
