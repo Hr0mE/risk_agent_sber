@@ -2,7 +2,7 @@ from langgraph.types import Command
 from agents.nodes.base import BaseNode
 from langchain_community.vectorstores.faiss import FAISS
 from agents.state_management import (
-    GlobalState, 
+    GlobalState,
     NodeNames,
 )
 from models import NomicEmbedModel as embed
@@ -18,17 +18,13 @@ class RagNode(BaseNode):
 
     def execute(self, state: GlobalState) -> dict:
         vectorstore = FAISS.load_local(
-            folder_path=self.path_to_db, 
-            embeddings=self.model, 
-            allow_dangerous_deserialization=True
+            folder_path=self.path_to_db, embeddings=self.model, allow_dangerous_deserialization=True
         )
         retriever = vectorstore.as_retriever()
 
-        #TODO Выдавать не один результат, а сразу много
+        # TODO Выдавать не один результат, а сразу много
         result = retriever.invoke(state.get("rag_query", ""))
-        
+
         print(result)
 
-        return Command(
-            update={"rag_results": result}
-        )
+        return Command(update={"rag_results": result})

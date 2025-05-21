@@ -1,5 +1,6 @@
-#models/config/models.py
+# models/config/models.py
 from .base import BaseAPIConfig, BaseLocalConfig
+
 
 class OpenAIConfig(BaseAPIConfig):
     model_name: str = "gpt-3.5-turbo"
@@ -12,10 +13,12 @@ class MistralLargeAPIConfig(BaseAPIConfig):
     api_key_env: str = "MISTRAL_API_KEY"
     api_base: str = "https://api.mistral.ai/v1"
 
+
 class MistralEmbedAPIConfig(BaseAPIConfig):
     model_name: str = "mistral-embed"
     api_key_env: str = "MISTRAL_API_KEY"
     api_base: str = "https://api.mistral.ai/v1"
+
 
 class NomicEmbedAPIConfig(BaseAPIConfig):
     model_name: str = "nomic-embed-text-v1.5"

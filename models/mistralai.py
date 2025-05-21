@@ -6,11 +6,12 @@ from .config.models import MistralLargeAPIConfig, MistralEmbedAPIConfig
 from time import sleep
 import os
 
-class MistralLargeModel(BaseAPIModel):    
+
+class MistralLargeModel(BaseAPIModel):
     # В reason вылетает ошибка, т.к. __init__ принимает config в self.chain. С другим именем работает
     def __init__(self, config: MistralLargeAPIConfig):
         super().__init__(config)
-    
+
     def _initialize(self):
         print(self.config.api_key)
         self.model = ChatMistralAI(
@@ -20,7 +21,6 @@ class MistralLargeModel(BaseAPIModel):
             mistral_api_key=self.config.api_key,
         )
 
-    
     def invoke(self, prompt: str) -> str:
         # Потому что мистраль выдаёт 429 ошибку при частых запросах
         sleep(1)
@@ -33,14 +33,11 @@ class MistralLargeModel(BaseAPIModel):
             yield chunk.content
 
 
-class MistralEmbedModel(BaseAPIEmbedModel):    
+class MistralEmbedModel(BaseAPIEmbedModel):
     def __init__(self, config: MistralEmbedAPIConfig):
-        HfFolder.save_token(os.environ['HF_TOKEN'])
+        HfFolder.save_token(os.environ["HF_TOKEN"])
         super().__init__(config)
         self.config = config
-    
+
     def _initialize(self):
-        self.model = MistralAIEmbeddings(
-            api_key=self.config.api_key, 
-            wait_time=1
-        )
+        self.model = MistralAIEmbeddings(api_key=self.config.api_key, wait_time=1)

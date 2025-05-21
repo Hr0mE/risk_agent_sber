@@ -1,8 +1,5 @@
-from agents.state_management import (
-    NodeNames,
-    FirstStepDecisionModel,
-    CritiqueDecisionModel
-)
+from agents.state_management import NodeNames, FirstStepDecisionModel, CritiqueDecisionModel
+
 
 class ConditionHandler:
     @staticmethod
@@ -19,12 +16,12 @@ class ConditionHandler:
         # Проверяем необходимые условия для переходов
         if next_node == NodeNames.SEARCH and not decision.search_query:
             return NodeNames.FINALIZE.value
-            
+
         if next_node == NodeNames.RAG and not decision.rag_query:
             return NodeNames.FINALIZE.value
-            
+
         return next_node
-    
+
     @staticmethod
     def handle_critique(decision: CritiqueDecisionModel) -> NodeNames:
         """
@@ -39,12 +36,11 @@ class ConditionHandler:
         # Проверяем необходимые условия для переходов
         if next_node == NodeNames.SEARCH and not decision.search_query:
             return NodeNames.FINALIZE.value
-            
+
         if next_node == NodeNames.RAG and not decision.rag_query:
             return NodeNames.FINALIZE.value
-            
+
         return next_node
-    
 
     @classmethod
     def evaluate_transition(cls, source_node: NodeNames, result: object) -> NodeNames:
@@ -53,14 +49,20 @@ class ConditionHandler:
         """
         if source_node == NodeNames.FIRST_STEP:
             if not isinstance(result, FirstStepDecisionModel):
-                raise TypeError("FirstStep transition requires agents.state_management.first_step_model.FirstStepDecision output")
-            
+                raise TypeError(
+                    "FirstStep transition requires "
+                    "agents.state_management.first_step_model.FirstStepDecision output"
+                )
+
             return cls.handle_first_step(result)
-        
+
         elif source_node == NodeNames.CRITIQUE:
             if not isinstance(result, CritiqueDecisionModel):
-                raise TypeError("Critique transition requires agents.state_management.critique_model.CritiqueDecisionModel output")
-            
+                raise TypeError(
+                    "Critique transition requires "
+                    "agents.state_management.critique_model.CritiqueDecisionModel output"
+                )
+
             return cls.handle_critique(result)
-    
+
         raise NotImplementedError(f"Transition from {source_node} not implemented")

@@ -1,5 +1,5 @@
 # Условия перехода между нодами
-Условные переходы, которые используется обычно в `goto` при обновлении состояния графа. Нужен в случае наличия развилки. 
+Условные переходы, которые используется обычно в `goto` при обновлении состояния графа. Нужен в случае наличия развилки.
 
 ## 📁 Файловая структура
 edges/\
@@ -24,20 +24,20 @@ class ConditionHandler:
         # Проверяем необходимые условия для переходов
         if next_node == NodeNames.SOME_NODE_2 and not decision.some_field:
             return NodeNames.SOME_NODE_3.value
-        
+
         return next_node
 
     @classmethod # Главный роутер для обработки переходов между нодами
     def evaluate_transition(cls, source_node: NodeNames, result: object) -> NodeNames:
-        
+
         if source_node == NodeNames.SOME: # Добавление условия в роутер
-            
+
             if not isinstance(result, SomeNodeModel): # Проверка на соответствие типа вывода ожидаемому
                 raise TypeError("SomeNode transition requires agents.state_management.some_node_model.SomeNodeModel output")
-            
+
             return cls.handle_some_node(result)
 
-    
+
         raise NotImplementedError(f"Transition from {source_node} not implemented")
 ```
 ## 🛠️ Использование
@@ -50,14 +50,14 @@ class SomeNode(BaseNode):
         super().__init__(name=NodeNames.SOME.value)
         self.parser = PydanticOutputParser(pydantic_object=output_model)
         self.model = model(config=model_config())
-    
+
     def execute(self, state: GlobalState) -> Command:
         ...
-        
+
         chain = prompt | self.model | self.parser
-        
+
         result = chain.invoke({...})
-        
+
         return Command(
             update={...},
             goto = ConditionHandler.evaluate_transition(
@@ -91,19 +91,19 @@ class SomeNode(BaseNode):
 ```bash
 
 ```
-_Причина:_ 
+_Причина:_
 
-_Решение:_ 
-- [ ] 
-- [ ] 
+_Решение:_
+- [ ]
+- [ ]
 ---
 
 ```bash
 
 ```
-_Причина:_ 
+_Причина:_
 
-_Решение:_ 
-- [ ] 
-- [ ] 
+_Решение:_
+- [ ]
+- [ ]
 ---
