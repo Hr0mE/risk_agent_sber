@@ -1,9 +1,24 @@
-# Заголовок
-Описание-описание-Описание-описание-Описание-описание-Описание-описание-Описание-описание-Описание-описание
+# Ноды графа
+Здесь хранятся все ноды, которые могут в дальнейшем быть использованы в [цепочках](../chains/)
 
 ## 📁 Файловая структура
-edges\
-└── [`conditions.py`](conditions.py) -- Основной класс с условиями.
+nodes/\
+├── [`base.py`](base.py)        - \
+├── [`critique.py`](critique.py)\
+├── [`extract_conversation_style.py`](extract_conversation_style.py) - \
+├── [`extract_faq.py`](extract_faq.py) - \
+├── [`finalize.py`](finalize.py) - \
+├── [`first_step.py`](first_step.py) - \
+├── [`get_memory_faq.py`](get_memory_faq.py) - \
+├── [`get_memory_manner.py`](get_memory_manner.py) - \
+├── [`question_decomposition.py`](question_decomposition.py) - \
+├── [`rag.py`](rag.py) - \
+├── [`reason.py`](reason.py) - \
+├── [`search.py`](search.py) - \
+├── [`store_question.py`](store_question.py) - \
+├── [`write.py`](write.py) - \
+├── [`write_faq.py`](write_faq.py) - \
+└── [`write_manner_to_memory.py`](write_manner_to_memory.py) - 
 
 ## 🧩 Ключевые компоненты
 - [`file.py`](file.py) -- Доступ через класс `File`. `

@@ -71,7 +71,7 @@ class SomeNode(BaseNode):
 
 **Добавление нового условия в существующий хэндлер:**
 - [ ] Создать валидационную модель (pydantic) 
-  - [ ] Убедиться, что в модели есть поле final_decision или его аналог. [Подробнее о валидационных моделях](../state_management/README.md)
+  - [ ] Убедиться, что в модели есть поле final_decision или его аналог. [Подробнее о валидационных моделях](../state_management/validation_models/README.md)
   - [ ] Занести модель в [`__init__.py`](../state_management/__init__.py)
 - [ ] Убедиться в наличии нод, к которым нужно сделать переход. [Подробнее о нодах](../nodes/README.md#-чеклисты)
 - [ ] Отредактировать `ConditionHandler`
@@ -82,7 +82,8 @@ class SomeNode(BaseNode):
 
 **Удаление условия:**
 - [ ] Удалить все упоминания в `ConditionHandler`
-- [ ] Удалить валидационную модель и упоминание в [`__init__.py`](../state_management/__init__.py)
+- [ ] Удалить валидационную модель и упоминание в [`state_management/__init__.py`](../state_management/__init__.py)
+- [ ] Удалить валидационную модель и упоминание в [`validation_models/__init__.py`](../state_management/validation_models/__init__.py)
 - [ ] Удалить вызов в `Command(goto=ConditionHandler(...))` в ноде
 
 ## ⚠️ Возможные ошибки
