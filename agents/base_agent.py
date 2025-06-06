@@ -1,4 +1,5 @@
 import asyncio
+import time
 from typing import Dict
 from uuid import uuid4
 
@@ -45,20 +46,14 @@ class BaseAgent:
 
 
 def get_best_question(faq_list):
-    max_theme_score = max(item["theme"]["score"] for item in faq_list)
-    # Тематики с максимальным баллом
-    top_themes = [item for item in faq_list if item["theme"]["score"] == max_theme_score]
+    scored_questions = []
+    for item in faq_list:
+        for question in item["questions"]:
+            # Балл = вес темы * вес вопроса
+            combined_score = item["theme"]["score"] * question["score"]
+            scored_questions.append((combined_score, question["text"]))
 
-    if len(top_themes) == 1:
-        questions = top_themes[0]["questions"]
-        best_question = max(questions, key=lambda q: q["score"])
-        return best_question["text"]
-    else:
-        all_questions = []
-        for theme in top_themes:
-            all_questions.extend(theme["questions"])
-        best_question = max(all_questions, key=lambda q: q["score"])
-        return best_question["text"]
+    return max(scored_questions, key=lambda x: x[0])[1]
 
 
 async def main():
@@ -73,23 +68,17 @@ async def main():
     # memory_uuid = str(uuid4())
     thread_id = str(uuid4())
 
-    while True:
-        # Примерная работа предложения вопроса
-        is_new_thread = input("Новый чат?")
-        count = 0
-        if is_new_thread.lower() in ["y", "yeah", "yes"] and count == 0:
-            namespace = ("user_info", user_uuid)
-            curr_memory_data = memory_store.get(namespace, memory_uuid) or {}
-            curr_val = curr_memory_data.value if curr_memory_data != {} else {}
-            memory_faq = curr_val.get("faq", None)
-            if memory_faq is not None:
-                suggestion = get_best_question(memory_faq)
-                print(f"\n\033[33mАссистент:\n  Хотитие, отвечу на вопрос:\033[37m {suggestion}")
+    questions = [
+        "Что такое аппетит к риску?",
+        "Какие требования предъявляются к материальным рискам?",
+        "Какие принципы лежат в основе честной конкуренции?",
+        "Что делать, если клиент передает работнику запрещенный подарок?",
+        "является ли факт принятия чаевых в размере 2 тыс руб событием оприска?"
+        "является ли факт принятия чаевых в размере 20 тыс руб событием оприска?",
+        "является ли факт принятия чаевых в размере 20 тыс руб событием оприска?",
+    ]
 
-        text = input("\n\033[34mВведите сообщение:\033[37m ")
-        if text.lower() in ["exit", "выход", "пока", "quit", "q", "esc"]:
-            break
-        count += 1
+    for text in questions:
         inputs = {"messages": text, "user_question": text}
         config = {
             "thread_id": thread_id,
@@ -100,8 +89,48 @@ async def main():
                 }
             },
         }
+        time.sleep(3)
 
         await main_graph.run(inputs=inputs, config=config)
+
+    namespace = ("user_info", user_uuid)
+    curr_memory_data = memory_store.get(namespace, memory_uuid) or {}
+    curr_val = curr_memory_data.value if curr_memory_data != {} else {}
+    memory_faq = curr_val.get("faq", None)
+    if memory_faq is not None:
+        suggestion = get_best_question(memory_faq)
+        print(f"\n\033[33mАссистент:\n  Хотитие, отвечу на вопрос:\033[37m {suggestion}")
+
+    # Интерактивный CLI
+    # while True:
+    #     # Примерная работа предложения вопроса
+    #     is_new_thread = input("Новый чат?")
+    #     count = 0
+    #     if is_new_thread.lower() in ["y", "yeah", "yes"] and count == 0:
+    #         namespace = ("user_info", user_uuid)
+    #         curr_memory_data = memory_store.get(namespace, memory_uuid) or {}
+    #         curr_val = curr_memory_data.value if curr_memory_data != {} else {}
+    #         memory_faq = curr_val.get("faq", None)
+    #         if memory_faq is not None:
+    #             suggestion = get_best_question(memory_faq)
+    #             print(f"\n\033[33mАссистент:\n  Хотитие, отвечу на вопрос:\033[37m {suggestion}")
+
+    #     text = input("\n\033[34mВведите сообщение:\033[37m ")
+    #     if text.lower() in ["exit", "выход", "пока", "quit", "q", "esc"]:
+    #         break
+    #     count += 1
+    #     inputs = {"messages": text, "user_question": text}
+    #     config = {
+    #         "thread_id": thread_id,
+    #         "configurable": {
+    #             "metadata": {
+    #                 "user_uuid": user_uuid,
+    #                 "memory_uuid": memory_uuid,
+    #             }
+    #         },
+    #     }
+
+    #     await main_graph.run(inputs=inputs, config=config)
 
 
 if __name__ == "__main__":

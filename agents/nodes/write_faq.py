@@ -75,12 +75,14 @@ class FAQWriteNode(BaseNode):
                 theme_text = faq_item.theme.text
                 questions = faq_item.questions
 
-                faq_item.theme.score += math.log(1 + len(questions))
+                avg_question_score = sum(q.score for q in questions) / len(questions)
+                faq_item.theme.score += math.log2(1 + len(questions)) * avg_question_score
                 now = datetime.now()
                 for question in questions:
-                    question.score *= math.exp(-3 * (now - question.send_date).total_seconds())
+                    question.score *= math.exp(-0.05 * (now - question.send_date).total_seconds())
 
                 similar_theme = find_similar_theme(theme_text, memory_faq_temp.keys())
+                print(f"THEMES SIMILARITY:\n{theme_text}\n{memory_faq_temp.keys()}\n{similar_theme}\n\n")
 
                 if similar_theme:
                     memory_faq_temp[similar_theme]["theme"]["score"] = (
@@ -90,11 +92,15 @@ class FAQWriteNode(BaseNode):
                     existing_questions_texts = {
                         q["text"] for q in memory_faq_temp[similar_theme]["questions"]
                     }
-                    for q in questions:
+                    for index, q in enumerate(questions):
                         if q.text not in existing_questions_texts:
                             memory_faq_temp[similar_theme]["questions"].append(
                                 {"text": q.text, "score": q.score, "send_date": q.send_date.isoformat()}
                             )
+                        else:
+                            memory_faq_temp[similar_theme]["questions"][index][
+                                "send_date"
+                            ] = q.send_date.isoformat()
                 else:
                     memory_faq.append(json.loads(RootModel([faq_item]).model_dump_json())[0])
 
