@@ -8,16 +8,16 @@ class GlobalState(MessagesState):
         str  # Вопрос из ноды QuestionDecomposition, который поможет решить проблему пользователя
     )
     sub_questions: List[str]  # Подвопросы из ноды QuestionDecomposition
-    last_reason: str
-    user_question: str
-    last_answer: str
-    critique: List[str]
-    final_decision: str
-    final_answer: str
-    search_query: str
-    search_results: Dict
-    rag_query: str
-    rag_results: Dict
+    last_reason: str # Последние рассуждение ноды reason
+    user_question: str # вопрос пользователя
+    last_answer: str # Последний ответ ноды write
+    critique: List[str] # Последняя критика ноды Critic
+    final_decision: str # Решение Critic
+    final_answer: str # Текст, который из Critic идёт в Finalize
+    search_query: str # Поисковый запрос в ноду Search
+    search_results: Dict # Результат поискового запроса
+    rag_query: str # Запрос в ноду Rag для поиска по внутренним документам 
+    rag_results: Dict # Результат rag-запроса
 
     is_info_in_memory: bool  # Есть ли манера в памяти
     is_write_to_memory: bool  # Надо ли записывать манеру в память
