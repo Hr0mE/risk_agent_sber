@@ -7,8 +7,9 @@ from langgraph.graph import StateGraph
 from langgraph.types import Checkpointer
 
 # from agents.chains import OnlySearchChain as chain
-# from agents.chains import FullExecutionChain as chain
-from agents.chains import OnlyMemoryChainWithoutMannerExtract as chain
+from agents.chains import FullExecutionChain as chain
+
+# from agents.chains import OnlyMemoryChainWithoutMannerExtract as chain
 
 # from agents.chains import RagChain as chain
 from agents.state_management import GlobalState as state
