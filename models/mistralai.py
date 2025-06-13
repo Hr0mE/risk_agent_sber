@@ -23,7 +23,7 @@ class MistralLargeModel(BaseAPIModel):
 
     def invoke(self, prompt: str) -> str:
         # Потому что мистраль выдаёт 429 ошибку при частых запросах
-        sleep(1)
+        sleep(3)
 
         response = self.model.invoke(prompt)
         return response.content

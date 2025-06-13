@@ -6,8 +6,8 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import StateGraph
 from langgraph.types import Checkpointer
 
-# from agents.chains import OnlySearchChain as chain
-from agents.chains import FullExecutionChain as chain
+#from agents.chains import OnlySearchChain as chain
+from agents.chains import FullExecutionChain as chai1n
 
 # from agents.chains import OnlyMemoryChainWithoutMannerExtract as chain
 
@@ -22,7 +22,7 @@ class BaseAgent:
     def __init__(self, checkpointer: Checkpointer = None):
         self.graph = chain().build(
             state,
-            name="Risk Agent by RD-ml team(отсылка на Роберта Дауни мл.)",
+            name="Risk Agent by RD-ml team",
             checkpointer=checkpointer,
         )
 

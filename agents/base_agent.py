@@ -22,7 +22,7 @@ class BaseAgent:
     def __init__(self, checkpointer: Checkpointer = None):
         self.graph = chain().build(
             state,
-            name="Risk Agent by RD-ml team(отсылка на Роберта Дауни мл.)",
+            name="Risk Agent by RD-ml team",
             checkpointer=checkpointer,
         )
 

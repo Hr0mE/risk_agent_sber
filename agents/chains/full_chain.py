@@ -33,10 +33,12 @@ class FullExecutionChain(BaseChain):
             (nodes.StoreQuestionNode, nodes.FAQExtractNode),
             (nodes.FAQExtractNode, nodes.FAQWriteNode),
             (nodes.FAQWriteNode, nodes.GetFAQFromMemoryNode),
+            
             # TODO: Раскомментить для фулл пайплайна
             # (nodes.GetFAQFromMemoryNode, nodes.MannerExtractNode),
             # (nodes.MannerExtractNode, nodes.WriteMannerToMemoryNode),
             # (nodes.WriteMannerToMemoryNode, nodes.GetMannerFromMemoryNode),
+            
             (nodes.GetFAQFromMemoryNode, nodes.GetMannerFromMemoryNode),  # Без извлечения
             (nodes.GetMannerFromMemoryNode, nodes.ReasonNode),
             (nodes.ReasonNode, nodes.FirstStepNode),
