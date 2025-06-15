@@ -34,10 +34,10 @@ class FAQWriteNode(BaseNode):
         if memory_faq is None:
             # Подсчет баллов тематик и вопросов
             for faq_item in state_faq:
-                faq_item.theme.score += math.log(1 + len(faq_item.questions))
+                faq_item.theme.score += math.log2(1 + len(faq_item.questions))
                 for question in faq_item.questions:
                     now = datetime.now()
-                    question.score *= math.exp(-3 * (now - question.send_date).total_seconds())
+                    question.score *= math.exp(-0.05 * (now - question.send_date).total_seconds())
 
             curr_val["faq"] = json.loads(RootModel(state_faq).model_dump_json())
         else:
