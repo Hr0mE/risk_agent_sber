@@ -9,7 +9,7 @@ class OpenAIConfig(BaseAPIConfig):
 
 
 class MistralLargeAPIConfig(BaseAPIConfig):
-    model_name: str = "mistral-large-latest"
+    model_name: str = "mistral-large-2407"
     api_key_env: str = "MISTRAL_API_KEY"
     api_base: str = "https://api.mistral.ai/v1"
 

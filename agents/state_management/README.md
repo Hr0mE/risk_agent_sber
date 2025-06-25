@@ -44,7 +44,7 @@ class NewNode(BaseNode):
 
         return Command(
             # Обновляем все необходимые поля
-            update={ 
+            update={
                 "field_1": result.field_1
             }
         )

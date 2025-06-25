@@ -60,3 +60,5 @@ class MannerExtractNode(BaseNode):
                     "manner": result["manner"],
                 }
             )
+
+        return Command()

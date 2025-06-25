@@ -35,6 +35,7 @@ class FinalizeNode(BaseNode):
                 "last_answer": state.get("last_answer", ""),
                 "search_results": state.get("search_results", {}),
                 "rag_results": state.get("rag_results", {}),
+                "manner": state.get("manner", ""),
             }
         )
 
