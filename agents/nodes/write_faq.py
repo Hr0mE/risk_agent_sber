@@ -34,10 +34,10 @@ class FAQWriteNode(BaseNode):
         if memory_faq is None:
             # Подсчет баллов тематик и вопросов
             for faq_item in state_faq:
-                faq_item.theme.score += math.log(1 + len(faq_item.questions))
+                faq_item.theme.score += math.log2(1 + len(faq_item.questions))
                 for question in faq_item.questions:
                     now = datetime.now()
-                    question.score *= math.exp(-3 * (now - question.send_date).total_seconds())
+                    question.score *= math.exp(-0.05 * (now - question.send_date).total_seconds())
 
             curr_val["faq"] = json.loads(RootModel(state_faq).model_dump_json())
         else:
@@ -45,30 +45,44 @@ class FAQWriteNode(BaseNode):
             #   {
             #     'theme': {
             #       'text': 'Аппетит к риску',
-            #       'score': 1.6931471805599454
+            #       'score': 1.0
             #     },
             #     'questions': [
             #       {
             #         'text': 'Что такое аппетит к риску?',
-            #         'score': 7.059341935886362e-09,
-            #         'send_date': '2025-05-19T03:15:47.797530'
+            #         'score': 1.0,
+            #         'send_date': '2025-05-19T03: 15: 47.797530'
             #       }
             #     ]
             #   },
             #   {
             #     'theme': {
             #       'text': 'Чаевые',
-            #       'score': 1.6931471805599454
+            #       'score': 1.0
             #     },
             #     'questions': [
             #       {
             #         'text': 'является ли факт принятия чаевых в размере 20 тыс руб событием оприска?',
-            #         'score': 0.0003621804462607523,
-            #         'send_date': '2025-05-19T03:15:53.220303'
+            #         'score': 1.0,
+            #         'send_date': '2025-05-19T03: 15: 53.220303'
             #       }
             #     ]
             #   }
             # ]
+
+            # {
+            #   "is_to_memory": true,
+            #   "manner": {
+            #     "tone": "неформальный, дружелюбный",
+            #     "emotionality": "умеренная",
+            #     "appeal": "на ты",
+            #     "additionally": [
+            #       "использует жаргон",
+            #       "короткие предложения",
+            #       "вопросы"
+            #     ]
+            #   }
+            # }
             memory_faq_temp = {i["theme"]["text"]: i for i in memory_faq}
 
             for faq_item in state_faq:
