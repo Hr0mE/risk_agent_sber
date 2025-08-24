@@ -26,8 +26,6 @@ class GlobalState(MessagesState):
     is_write_to_memory: bool  # Надо ли записывать манеру в память
     manner: MannerInfo  # Данные о манере
     remaining_steps_to_check_manner: int  # Подсчет кол-ва шагов для адаптации
-    # raw_questions: List[str]  # Буфер вопросов для извлечения
     raw_questions: List[Question]  # Буфер вопросов для извлечения
-    # faq: List[Dict[str, List[str]]]  # Извлеченные часто задаваемые вопросы, сгруппированые по тематикам
     faq: List[FAQData]  # Извлеченные часто задаваемые вопросы, сгруппированые по тематикам
     is_write_faq: bool  # Надо ли записывать FAQ в память
