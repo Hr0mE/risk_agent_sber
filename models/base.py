@@ -61,7 +61,7 @@ class BaseAPIModel(BaseModel):
 
 
 class BaseAPIEmbedModel(Embeddings, BaseModel):
-    """Базовый класс для API моделей через LangChain"""
+    """Базовый класс для эмбеддингов через LangChain"""
 
     def __init__(self, config: BaseAPIConfig):
         super().__init__(config)

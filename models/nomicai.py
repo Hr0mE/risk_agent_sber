@@ -9,4 +9,4 @@ class NomicEmbedModel(BaseAPIEmbedModel):
         self.config = config
 
     def _initialize(self):
-        self.model = NomicEmbeddings(model="nomic-embed-text-v1.5", nomic_api_key=self.config.api_key)
+        self.model = NomicEmbeddings(model=self.config.model_name, nomic_api_key=self.config.api_key)

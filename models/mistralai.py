@@ -13,7 +13,6 @@ class MistralLargeModel(BaseAPIModel):
         super().__init__(config)
 
     def _initialize(self):
-        print(self.config.api_key)
         self.model = ChatMistralAI(
             model=self.config.model_name,
             temperature=self.config.temperature,

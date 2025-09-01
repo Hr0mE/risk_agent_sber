@@ -107,7 +107,7 @@ async def main():
         # Примерная работа предложения вопроса
         is_new_thread = input("Новый чат?")
         count = 0
-        if is_new_thread.lower() in ["y", "yeah", "yes"] and count == 0:
+        if is_new_thread.lower() in ["y", "yeah", "yes", "да", "д", "true", "1"] and count == 0:
             namespace = ("user_info", user_uuid)
             curr_memory_data = memory_store.get(namespace, memory_uuid) or {}
             curr_val = curr_memory_data.value if curr_memory_data != {} else {}
