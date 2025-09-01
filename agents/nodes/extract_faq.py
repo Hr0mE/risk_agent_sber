@@ -34,7 +34,6 @@ class FAQExtractNode(BaseNode):
                 }
             )
 
-        # TODO: распарсить в Jinja
         format_questions = "\n".join(f"- {q}" for q in questions)
 
         template = self.prompt_manager.render(self.prompt_template, {})

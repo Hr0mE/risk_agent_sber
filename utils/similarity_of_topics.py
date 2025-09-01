@@ -19,7 +19,7 @@ def find_similar_theme(theme: str, themes: List[str], threshold=0.78) -> Optiona
     """
     for existing_theme in themes:
         emb1, emb2 = model.embed_query(theme), model.embed_query(existing_theme)
-        print(np.dot(emb1, emb2) / (np.linalg.norm(emb1) * np.linalg.norm(emb2)))
+        
         if np.dot(emb1, emb2) / (np.linalg.norm(emb1) * np.linalg.norm(emb2)) >= threshold:
             return existing_theme
 

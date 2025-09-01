@@ -11,7 +11,6 @@ class StoreQuestionNode(BaseNode):
         super().__init__(name=NodeNames.STORE_QUESTION.value)
 
     def execute(self, state: GlobalState):
-        # question = state.get("problem_solving_question")
         question = [m for m in state.get("messages") if isinstance(m, HumanMessage)][-1]
         question_to_store = Question(text=question.content, send_date=datetime.now())
         if question:
